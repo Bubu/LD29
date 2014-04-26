@@ -12,6 +12,7 @@ class game:
         self.grid[3,RES_X//100] = STUBd
         self.roots = []
         self.roots.append(root.root(self,(3,RES_X//100),DOWN))
+        #self.roots[0].check_down()
 
     def run(self):
         self._if.run()
@@ -82,7 +83,7 @@ class game:
             self.scroll_up()
             self.grid_update()
             self._if.redrawGrid()
-            
+
     def triggerSplit(self):
         pass
         
