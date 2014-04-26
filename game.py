@@ -48,7 +48,10 @@ class game:
         for r in self.roots:
             oldpos = r.pos
             olddir = r.dir
-            dir1,dir2 = r.check_split()
+            try:
+                dir1,dir2 = r.check_split()
+            except TypeError:
+                print("ERROR: ", oldpos,olddir,dir1,dir2)
             if dir1 is not None:
                 if dir2 is not None:
                     newpos1,newpos2 = self.getnewpos(oldpos,dir1,dir2)
@@ -56,39 +59,65 @@ class game:
                         if dir1 == RIGHT:
                             if dir2 == LEFT:
                                 newtile = DOWNRIGHTLEFT
+                                newtile1 = SLEFT
+                                newtile2 = SRIGHT
                             elif dir2 == UP:
                                 newtile = DOWNRIGHTUP
+                                newtile1 = SLEFT
+                                newtile2 = SDOWN
                         elif dir1 == UP:
                             if dir2 == LEFT:
                                 newtile = DOWNUPLEFT
+                                newtile1 = SDOWN
+                                newtile2 = SRIGHT
                     elif olddir == DOWN:
                         if dir1 == LEFT:
                             if dir2 == RIGHT:
                                 newtile = UPLEFTRIGHT
+                                newtile1 = SRIGHT
+                                newtile2 = SLEFT
                             elif dir2 == DOWN:
                                 newtile = UPLEFTDOWN
+                                newtile1 = SRIGHT
+                                newtile2 = SUP
                         elif dir1 == DOWN:
                             if dir2 == RIGHT:
                                 newtile = UPDOWNRIGHT
+                                newtile1 = SUP
+                                newtile2 = SLEFT
                     elif olddir == RIGHT:
                         if dir1 == DOWN:
                             if dir2 == UP:
                                 newtile = LEFTDOWNUP
+                                newtile1 = SUP
+                                newtile2 = SDOWN
                             elif dir2 == RIGHT:
                                 newtile = LEFTDOWNRIGHT
+                                newtile1 = SUP
+                                newtile2 = SLEFT
                         elif dir1 == RIGHT:
                             if dir2 == UP:
                                 newtile = LEFTRIGHTUP
+                                newtile1 = SLEFT
+                                newtile2 = SDOWN
                     elif olddir == LEFT:
                         if dir1 == UP:
                             if dir2 == DOWN:
                                 newtile = RIGHTUPDOWN
+                                newtile1 = SDOWN
+                                newtile2 = SUP
                             elif dir2 == LEFT:
                                 newtile = RIGHTUPLEFT
+                                newtile1 = SDOWN
+                                newtile2 = SRIGHT
                         elif dir1 == LEFT:
                             if dir2 == DOWN:
                                 newtile = RIGHTLEFTDOWN
+                                newtile1 = SRIGHT
+                                newtile2 = SUP
                     self.grid[oldpos][0] = newtile
+                    self.grid[newpos1][0] = newtile1
+                    self.grid[newpos2][0] = newtile2
                     self._if.update([oldpos,newpos1,newpos2])
                 else:
                     self.updateSingleTile(r,dir1,olddir,oldpos)
@@ -142,7 +171,7 @@ class game:
         d = {DOWN:(1,0),UP:(-1,0),LEFT:(0,-1),RIGHT:(0,1)}
         newpos1 = oldpos[0] + d[dir1][0],oldpos[1] + d[dir1][1]
         newpos2 = oldpos[0] + d[dir2][0],oldpos[1] + d[dir2][1]
-        print(newpos1,newpos2)
+        #print(newpos1,newpos2)
         return newpos1,newpos2
     
 myGame = game()
