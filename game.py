@@ -7,9 +7,9 @@ import numpy as np
 class game:
     def __init__(self):
         self._if = _if.interface(self)
-        self.grid = np.zeros((RES_Y//50,RES_X//50))
-        self.grid[0:3] = AIR
-        self.grid[3,RES_X//100] = STUBd
+        self.grid = np.zeros((RES_Y//50,RES_X//50),dtype=(int,3))
+        self.grid[:3,:,0] = AIR
+        self.grid[3,RES_X//100][0] = STUBd
         self.roots = []
         self.roots.append(root.root(self,(3,RES_X//100),DOWN))
         #self.roots[0].check_down()
@@ -21,14 +21,16 @@ class game:
         self._if.close()
 
     def scroll_up(self):
-        self.grid = np.delete(self.grid, 0, 0)
+        #self.grid = np.delete(self.grid, 0, 0)
+        self.grid = np.roll(self.grid,-1,0)
         for r in self.roots:
             r.pos = (r.pos[0]-1,r.pos[1])
             if r.pos[0] < 0:
                 roots.remove(r)
 
     def grid_update(self):
-        self.grid = np.vstack([self.grid, np.zeros(RES_X//50)])
+        #self.grid = np.vstack([self.grid, np.zeros(RES_X//50,dtype=(int,2))])
+        self.grid[-1,:,0] = GROUND #TODO: Generate new, random tiles
 
     def move(self,check_dir):
         lowest_ypos = 0
@@ -47,37 +49,37 @@ class game:
                 if newpos[0] > lowest_ypos:
                     lowest_ypos = newpos[0]
                 if dir == DOWN:
-                    self.grid[newpos] = STUBd
+                    self.grid[newpos][0] = STUBd
                     if olddir == DOWN:
-                        self.grid[oldpos] = ROOTv
+                        self.grid[oldpos][0] = ROOTv
                     elif olddir == RIGHT:
-                        self.grid[oldpos] = LANGLEd
+                        self.grid[oldpos][0] = LANGLEd
                     elif olddir == LEFT:
-                        self.grid[oldpos] = RANGLEd
+                        self.grid[oldpos][0] = RANGLEd
                 elif dir == UP:
-                    self.grid[newpos] = STUBu
+                    self.grid[newpos][0] = STUBu
                     if olddir == UP:
-                        self.grid[oldpos] = ROOTv
+                        self.grid[oldpos][0] = ROOTv
                     elif olddir == LEFT:
-                        self.grid[oldpos] = RANGLEu
+                        self.grid[oldpos][0] = RANGLEu
                     elif olddir == RIGHT:
-                        self.grid[oldpos] = LANGLEu
+                        self.grid[oldpos][0] = LANGLEu
                 elif dir == RIGHT:
-                    self.grid[newpos] = STUBr
+                    self.grid[newpos][0] = STUBr
                     if olddir == UP:
-                        self.grid[oldpos] = RANGLEd
+                        self.grid[oldpos][0] = RANGLEd
                     elif olddir == DOWN:
-                        self.grid[oldpos] = RANGLEu
+                        self.grid[oldpos][0] = RANGLEu
                     elif olddir == RIGHT:
-                        self.grid[oldpos] = ROOTh
+                        self.grid[oldpos][0] = ROOTh
                 elif dir == LEFT:
-                    self.grid[newpos] = STUBl
+                    self.grid[newpos][0] = STUBl
                     if olddir == UP:
-                        self.grid[oldpos] = LANGLEd
+                        self.grid[oldpos][0] = LANGLEd
                     elif olddir == LEFT:
-                        self.grid[oldpos] = ROOTh
+                        self.grid[oldpos][0] = ROOTh
                     elif olddir == DOWN:
-                        self.grid[oldpos] = LANGLEu
+                        self.grid[oldpos][0] = LANGLEu
                 self._if.update([oldpos,newpos])
         if lowest_ypos >= (RES_Y//50-5):
             self.scroll_up()

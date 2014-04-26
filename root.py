@@ -9,27 +9,27 @@ class root:
     def check_down(self):
         if self.dir == UP:
             return self.check_up()
-        if self.game.grid[self.pos[0]+1][self.pos[1]] in ACCESS:
+        if self.game.grid[self.pos[0]+1][self.pos[1]][0] in ACCESS:
             self.pos = (self.pos[0]+1,self.pos[1])
             self.dir = DOWN
             return DOWN
         elif self.pos[1] < RES_X//100:
-            if self.pos[1] > 0 and self.game.grid[self.pos[0]][self.pos[1]-1] in ACCESS:
+            if self.pos[1] > 0 and self.game.grid[self.pos[0]][self.pos[1]-1][0] in ACCESS:
                 self.pos = (self.pos[0],self.pos[1]-1)
                 self.dir = LEFT
                 return LEFT
-            elif self.game.grid[self.pos[0]][self.pos[1]+1] in ACCESS:
+            elif self.game.grid[self.pos[0]][self.pos[1]+1][0] in ACCESS:
                 self.pos = (self.pos[0],self.pos[1]+1)
                 self.dir = RIGHT
                 return RIGHT
             else:
                 return None
         elif self.pos[1] >= RES_X//100:
-            if self.pos[1] < RES_X//50 and self.game.grid[self.pos[0]][self.pos[1]+1] in ACCESS:
+            if self.pos[1] < RES_X//50 and self.game.grid[self.pos[0]][self.pos[1]+1][0] in ACCESS:
                 self.pos = (self.pos[0],self.pos[1]+1)
                 self.dir = RIGHT
                 return RIGHT
-            elif self.game.grid[self.pos[0]][self.pos[1]-1] in ACCESS:
+            elif self.game.grid[self.pos[0]][self.pos[1]-1][0] in ACCESS:
                 self.pos = (self.pos[0],self.pos[1]-1)
                 self.dir = LEFT
                 return LEFT
@@ -40,30 +40,30 @@ class root:
         if self.dir == LEFT:
             return self.check_left()
         if self.pos[1] < RES_X//100:
-            if self.game.grid[self.pos[0]][self.pos[1]+1] in ACCESS:
+            if self.game.grid[self.pos[0]][self.pos[1]+1][0] in ACCESS:
                 self.pos = (self.pos[0],self.pos[1]+1)
                 self.dir = RIGHT
                 return RIGHT
-            elif self.game.grid[self.pos[0]+1][self.pos[1]] in ACCESS:
+            elif self.game.grid[self.pos[0]+1][self.pos[1]][0] in ACCESS:
                 self.pos = (self.pos[0]+1,self.pos[1])
                 self.dir = DOWN
                 return DOWN
-            elif self.game.grid[self.pos[0]-1][self.pos[1]] in ACCESS:
+            elif self.game.grid[self.pos[0]-1][self.pos[1]][0] in ACCESS:
                 self.pos = (self.pos[0]-1,self.pos[1])
                 self.dir = UP
                 return UP 
             else:
                 return None
         elif self.pos[1] >= RES_X//100:
-            if self.pos[1] < RES_X//50 and self.game.grid[self.pos[0]][self.pos[1]+1] in ACCESS:
+            if self.pos[1] < RES_X//50 and self.game.grid[self.pos[0]][self.pos[1]+1][0] in ACCESS:
                 self.pos = (self.pos[0],self.pos[1]+1)
                 self.dir = RIGHT
                 return RIGHT
-            elif self.game.grid[self.pos[0]+1][self.pos[1]] in ACCESS:
+            elif self.game.grid[self.pos[0]+1][self.pos[1]][0] in ACCESS:
                 self.pos = (self.pos[0]+1,self.pos[1])
                 self.dir = DOWN
                 return DOWN
-            elif self.game.grid[self.pos[0]-1][self.pos[1]] in ACCESS:
+            elif self.game.grid[self.pos[0]-1][self.pos[1]][0] in ACCESS:
                 self.pos = (self.pos[0]-1,self.pos[1])
                 self.dir = UP
                 return UP 
@@ -74,30 +74,30 @@ class root:
         if self.dir == RIGHT:
             return self.check_right()
         if self.pos[1] < RES_X//100:
-            if self.pos[1] > 0 and self.game.grid[self.pos[0]][self.pos[1]-1] in ACCESS:
+            if self.pos[1] > 0 and self.game.grid[self.pos[0]][self.pos[1]-1][0] in ACCESS:
                 self.pos = (self.pos[0],self.pos[1]-1)
                 self.dir = LEFT
                 return LEFT
-            elif self.game.grid[self.pos[0]+1][self.pos[1]] in ACCESS:
+            elif self.game.grid[self.pos[0]+1][self.pos[1]][0] in ACCESS:
                 self.pos = (self.pos[0]+1,self.pos[1])
                 self.dir = DOWN
                 return DOWN
-            elif self.game.grid[self.pos[0]-1][self.pos[1]] in ACCESS:
+            elif self.game.grid[self.pos[0]-1][self.pos[1]][0] in ACCESS:
                 self.pos = (self.pos[0]-1,self.pos[1])
                 self.dir = UP
                 return UP 
             else:
                 return None
         elif self.pos[1] >= RES_X//100:
-            if self.game.grid[self.pos[0]][self.pos[1]-1] in ACCESS:
+            if self.game.grid[self.pos[0]][self.pos[1]-1][0] in ACCESS:
                 self.pos = (self.pos[0],self.pos[1]-1)
                 self.dir = LEFT
                 return LEFT
-            elif self.game.grid[self.pos[0]+1][self.pos[1]] in ACCESS:
+            elif self.game.grid[self.pos[0]+1][self.pos[1]][0] in ACCESS:
                 self.pos = (self.pos[0]+1,self.pos[1])
                 self.dir = DOWN
                 return DOWN
-            elif self.game.grid[self.pos[0]-1][self.pos[1]] in ACCESS:
+            elif self.game.grid[self.pos[0]-1][self.pos[1]][0] in ACCESS:
                 self.pos = (self.pos[0]-1,self.pos[1])
                 self.dir = UP
                 return UP 
@@ -106,30 +106,30 @@ class root:
 
     def check_up(self):
         if self.pos[1] < RES_X//100:
-            if self.pos[1] > 0 and self.game.grid[self.pos[0]][self.pos[1]-1] in ACCESS:
+            if self.pos[1] > 0 and self.game.grid[self.pos[0]][self.pos[1]-1][0] in ACCESS:
                 self.pos = (self.pos[0],self.pos[1]-1)
                 self.dir = LEFT
                 return LEFT
-            elif self.game.grid[self.pos[0]][self.pos[1]+1] in ACCESS:
+            elif self.game.grid[self.pos[0]][self.pos[1]+1][0] in ACCESS:
                 self.pos = (self.pos[0],self.pos[1]+1)
                 self.dir = RIGHT
                 return RIGHT
-            elif self.game.grid[self.pos[0]-1][self.pos[1]] in ACCESS:
+            elif self.game.grid[self.pos[0]-1][self.pos[1]][0] in ACCESS:
                 self.pos = (self.pos[0]-1,self.pos[1])
                 self.dir = UP
                 return UP 
             else:
                 return None
         elif self.pos[1] >= RES_X//100:
-            if self.pos[1] < RES_X//50 and self.game.grid[self.pos[0]][self.pos[1]+1] in ACCESS:
+            if self.pos[1] < RES_X//50 and self.game.grid[self.pos[0]][self.pos[1]+1][0] in ACCESS:
                 self.pos = (self.pos[0],self.pos[1]+1)
                 self.dir = RIGHT
                 return RIGHT
-            elif self.game.grid[self.pos[0]][self.pos[1]-1] in ACCESS:
+            elif self.game.grid[self.pos[0]][self.pos[1]-1][0] in ACCESS:
                 self.pos = (self.pos[0],self.pos[1]-1)
                 self.dir = LEFT
                 return LEFT
-            elif self.game.grid[self.pos[0]-1][self.pos[1]] in ACCESS:
+            elif self.game.grid[self.pos[0]-1][self.pos[1]][0] in ACCESS:
                 self.pos = (self.pos[0]-1,self.pos[1])
                 self.dir = UP
                 return UP 
