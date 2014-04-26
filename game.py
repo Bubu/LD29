@@ -53,33 +53,33 @@ class game:
                     if olddir == DOWN:
                         self.grid[oldpos][0] = UPDOWN
                     elif olddir == RIGHT:
-                        self.grid[oldpos][0] = RIGHTDOWN
-                    elif olddir == LEFT:
                         self.grid[oldpos][0] = LEFTDOWN
+                    elif olddir == LEFT:
+                        self.grid[oldpos][0] = RIGHTDOWN
                 elif dir == UP:
                     self.grid[newpos][0] = SDOWN
                     if olddir == UP:
                         self.grid[oldpos][0] = DOWNUP
                     elif olddir == LEFT:
-                        self.grid[oldpos][0] = LEFTUP
-                    elif olddir == RIGHT:
                         self.grid[oldpos][0] = RIGHTUP
+                    elif olddir == RIGHT:
+                        self.grid[oldpos][0] = LEFTUP
                 elif dir == RIGHT:
                     self.grid[newpos][0] = SLEFT
                     if olddir == UP:
-                        self.grid[oldpos][0] = UPRIGHT
-                    elif olddir == DOWN:
                         self.grid[oldpos][0] = DOWNRIGHT
+                    elif olddir == DOWN:
+                        self.grid[oldpos][0] = UPRIGHT
                     elif olddir == RIGHT:
                         self.grid[oldpos][0] = LEFTRIGHT
                 elif dir == LEFT:
                     self.grid[newpos][0] = SRIGHT
                     if olddir == UP:
-                        self.grid[oldpos][0] = UPLEFT
+                        self.grid[oldpos][0] = DOWNLEFT
                     elif olddir == LEFT:
                         self.grid[oldpos][0] = RIGHTLEFT
                     elif olddir == DOWN:
-                        self.grid[oldpos][0] = DOWNLEFT
+                        self.grid[oldpos][0] = UPLEFT
                 self._if.update([oldpos,newpos])
         if lowest_ypos >= (RES_Y//50-5):
             self.scroll_up()
@@ -88,25 +88,25 @@ class game:
 
     def triggerSplit(self):
         for r in self.roots:
-            oldpos = root.pos
-            olddir = root.dir
+            oldpos = r.pos
+            olddir = r.dir
             dir1,dir2 = r.check_split()
             if dir1 is not None:
                 if dir2 is not None:
                     if olddir == UP:
-                        if dir1 == LEFT:
-                            if dir2 == RIGHT:
-                                newtile = DOWNLEFTRIGHT
+                        if dir1 == RIGHT:
+                            if dir2 == LEFT:
+                                newtile = DOWNRIGHTLEFT
+                            elif dir2 == UP:
+                                newtile = DOWNRIGHTUP
                         elif dir1 == UP:
                             if dir2 == LEFT:
                                 newtile = DOWNUPLEFT
-                            elif dir2 == RIGHT
-                                newtile = DOWNUPRIGHT
                     elif olddir == DOWN:
                         if dir1 == LEFT:
                             if dir2 == RIGHT:
                                 newtile = UPLEFTRIGHT
-                            elif dir2 == DOWN
+                            elif dir2 == DOWN:
                                 newtile = UPLEFTDOWN
                         elif dir1 == DOWN:
                             if dir2 == RIGHT:
@@ -115,7 +115,7 @@ class game:
                         if dir1 == DOWN:
                             if dir2 == UP:
                                 newtile = LEFTDOWNUP
-                            elif dir2 == RIGHT
+                            elif dir2 == RIGHT:
                                 newtile = LEFTDOWNRIGHT
                         elif dir1 == RIGHT:
                             if dir2 == UP:
@@ -124,7 +124,7 @@ class game:
                         if dir1 == UP:
                             if dir2 == DOWN:
                                 newtile = RIGHTUPDOWN
-                            elif dir2 == LEFT
+                            elif dir2 == LEFT:
                                 newtile = RIGHTUPLEFT
                         elif dir1 == LEFT:
                             if dir2 == DOWN:

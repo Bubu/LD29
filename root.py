@@ -202,7 +202,7 @@ class root:
                 self.dir = LEFT
                 if old_pos[1] < RES_X//50 and self.game.grid[old_pos[0],old_pos[1]+1][0] in ACCESS:
                     self.game.newroots.append(root(self.game,(old_pos[0],old_pos[1]+1),RIGHT))
-                    return LEFT,RIGHT
+                    return RIGHT,LEFT
                 elif self.game.grid[old_pos[0]-1,old_pos[1]][0] in ACCESS:
                     self.game.newroots.append(root(self.game,(old_pos[0]-1,old_pos[1]),UP))
                     return UP,LEFT
@@ -211,7 +211,7 @@ class root:
                 self.dir = RIGHT
                 if self.game.grid[old_pos[0]-1,old_pos[1]][0] in ACCESS:
                     self.game.newroots.append(root(self.game,(old_pos[0]-1,old_pos[1]),UP))
-                    return UP,RIGHT
+                    return RIGHT,UP
             else:
                 return self.check_up(),None
                                   
