@@ -35,19 +35,21 @@ class interface:
             if evt.type == KEYUP and evt.key == K_F4 and bool(evt.mod & KMOD_ALT):
                 return
             else:
-                if evt.type == K_DOWN:
+                if evt.type == KEYUP and evt.key == K_DOWN:
                     self.game.moveDown()
-                elif evt.type == K_DOWN:
-                    self.game.moveDown()
-                elif evt.type == K_RIGHT:
+                elif evt.type == KEYUP and evt.key == K_RIGHT:
                     self.game.moveRight()
-                elif evt.type == K_LEFT:
+                elif evt.type == KEYUP and evt.key == K_LEFT:
                     self.game.moveLeft()
-                elif evt.type == K_SPACE:
+                elif evt.type == KEYUP and evt.key == K_SPACE:
                     self.game.triggerSplit()
 
-                pygame.display.update(self.updateRects)
+                pg.display.update(self.updateRects)
                 self.updateRects = []
+
+    def redrawGrid(self):
+        self.drawGrid()
+        self.updateRects = self.screen.get_rect()
 
     def setup(self):
         #self.screen.fill((196,195,192))

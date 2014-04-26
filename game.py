@@ -24,9 +24,23 @@ class game:
     def scroll_up(self):
         self.grid = np.delete(self.grid, 0, 0)
 
-    def self_grid_update(self):
+    def grid_update(self):
         self.grid = np.vstack([self.grid, np.zeros(cfg.RES_X/50)])
 
+    def moveDown(self):
+        self.scroll_up()
+        self.grid_update()
+        self._if.redrawGrid()
+
+    def moveRight(self):
+        pass
+    
+    def moveLeft(self):
+        pass
+
+    def triggerSplit(self):
+        pass
+        
 myGame = game()
 myGame.run()
 myGame.close()
