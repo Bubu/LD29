@@ -61,7 +61,7 @@ class interface:
 
     def update(self,coord_list):
         for coord in coord_list:
-            self.screen.blit(self.sprites[self.game.grid[coord]],self.getScreenPos(coord))
+            self.screen.blit(self.sprites[self.game.grid[coord][0]],self.getScreenPos(coord))
             self.updateRects.append(self.getRect(coord))
             
     def getRect(self,coord):
@@ -77,7 +77,7 @@ class interface:
 
     def drawGrid(self):
         for coord in product(range(RES_Y//50),range(RES_X//50)):
-            self.screen.blit(self.sprites[self.game.grid[coord]],self.getScreenPos(coord))
+            self.screen.blit(self.sprites[self.game.grid[coord][0]],self.getScreenPos(coord))
 
     def getScreenPos(self,coord):
         y = coord[0] * 50 + OFFSET_Y
