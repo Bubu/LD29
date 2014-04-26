@@ -17,11 +17,11 @@ class interface:
         
     def initSprites(self):
         self.sprites = {AIR:pg.Surface((50,50)),
-                        STUB:pg.Surface((50,50)),
+                        STUBd:pg.Surface((50,50)),
                         GROUND:pg.Surface((50,50))
                         }
         self.sprites[AIR].fill((50,50,200))
-        self.sprites[STUB].fill((0,150,150))
+        self.sprites[STUBd].fill((0,150,150))
         self.sprites[GROUND].fill((139,69,19))
 
     def close(self):
@@ -38,16 +38,24 @@ class interface:
                 return
             else:
                 if evt.type == KEYUP and evt.key == K_DOWN:
-                    self.game.moveDown()
+                    self.game.move(DOWN)
                 elif evt.type == KEYUP and evt.key == K_RIGHT:
-                    self.game.moveRight()
+                    self.game.move(RIGHT)
                 elif evt.type == KEYUP and evt.key == K_LEFT:
-                    self.game.moveLeft()
+                    self.game.move(LEFT)
                 elif evt.type == KEYUP and evt.key == K_SPACE:
                     self.game.triggerSplit()
-
+                
                 pg.display.update(self.updateRects)
                 self.updateRects = []
+
+    def update(self,coord_list):
+        for coord in coord_list:
+            self.screen.blit(self.sprites[self.game.grid[coord]],self.getScreenPos(coord))
+            self.updateRects.append(self.getRect(coord))
+            
+    def getRect(self,coord):
+        return pg.Rect(self.getScreenPos(coord),(50,50))
 
     def redrawGrid(self):
         self.drawGrid()
@@ -59,7 +67,6 @@ class interface:
 
     def drawGrid(self):
         for coord in product(range(RES_Y//50),range(RES_X//50)):
-            #print(coord)
             self.screen.blit(self.sprites[self.game.grid[coord]],self.getScreenPos(coord))
 
     def getScreenPos(self,coord):
