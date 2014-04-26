@@ -1,7 +1,10 @@
 import pygame as pg
 from pygame.locals import *
-from config import *
+from itertools import product
 import sys
+
+from config import *
+
 
 class interface:
     def __init__(self,game):
@@ -34,6 +37,16 @@ class interface:
                 pass
 
     def setup(self):
-        self.screen.fill((196,195,192))
+        #self.screen.fill((196,195,192))
+        self.drawGrid()
         self.screen.blit(self.sprites[AIR],(50,50))
         self.screen.blit(self.sprites[GROUND],(50,100))
+
+    def drawGrid(self):
+        for coord in product(range(RES_X//50),range(RES_Y//50)):
+            self.screen.blit(self.sprites[self.game.grid[coord]],self.getScreenPos(coord))
+
+    def getScreenPos(self,coord):
+        x = ccord[0] * 50 + OFFSET_X
+        y = ccord[1] * 50 + OFFSET_Y
+        return x,y
