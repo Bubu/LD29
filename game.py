@@ -22,7 +22,7 @@ class game:
 
     def scroll_up(self):
         self.grid = np.delete(self.grid, 0, 0)
-        for r in roots:
+        for r in self.roots:
             r.pos = (r.pos[0]-1,r.pos[1])
             if r.pos[0] < 0:
                 roots.remove(r)
@@ -34,7 +34,7 @@ class game:
         lowest_ypos = 0
         for root in self.roots:
             oldpos = root.pos
-            old_dir = root.dir
+            olddir = root.dir
             if check_dir == DOWN:
                 dir = root.check_down()
             elif check_dir == RIGHT:
@@ -79,7 +79,7 @@ class game:
                     elif olddir == DOWN:
                         self.grid[oldpos] = LANGLEu
                 self._if.update([oldpos,newpos])
-        if lowest_ypos >= (RES_Y//50-10):
+        if lowest_ypos >= (RES_Y//50-5):
             self.scroll_up()
             self.grid_update()
             self._if.redrawGrid()
