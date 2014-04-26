@@ -17,9 +17,11 @@ class interface:
         
     def initSprites(self):
         self.sprites = {AIR:pg.Surface((50,50)),
+                        STUB:pg.Surface((50,50)),
                         GROUND:pg.Surface((50,50))
                         }
         self.sprites[AIR].fill((50,50,200))
+        self.sprites[STUB].fill((0,150,150))
         self.sprites[GROUND].fill((139,69,19))
 
     def close(self):

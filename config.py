@@ -5,11 +5,17 @@ RES_Y = 750
 OFFSET_X = 0
 OFFSET_Y = 0
 
+UP = 0
+LEFT = 1
+RIGHT = 2
+DOWN = 3
+
 # ==Tile Constants==
 GROUND = 0
 AIR = 1
 
 STUB = 2
+STUBu = 22
 STUBr = 3
 STUBl = 4
 ROOTv = 5

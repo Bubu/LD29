@@ -1,19 +1,17 @@
-import config as cfg
+from config import *
+
 import pg_interface as _if
+import root
 import numpy as np
 
 class game:
     def __init__(self):
         self._if = _if.interface(self)
-        self.grid = np.zeros((cfg.RES_Y/50,cfg.RES_X/50))
-        self.grid[0:3] = cfg.AIR
-
-        #print the self.grid with its methods
-        #print(self.grid)
-        #self.scroll_up()
-        #print('cut first line' ,+self.grid)
-        #self.self_grid_update()
-        #print('add last line with zeros',+self.grid)
+        self.grid = np.zeros((RES_Y//50,RES_X//50))
+        self.grid[0:3] = AIR
+        self.grid[3,RES_X//100] = STUB
+        self.roots = []
+        self.roots.append(root.root(self,(3,RES_X//100),DOWN))
 
     def run(self):
         self._if.run()
@@ -25,7 +23,7 @@ class game:
         self.grid = np.delete(self.grid, 0, 0)
 
     def grid_update(self):
-        self.grid = np.vstack([self.grid, np.zeros(cfg.RES_X/50)])
+        self.grid = np.vstack([self.grid, np.zeros(RES_X//50)])
 
     def moveDown(self):
         self.scroll_up()
