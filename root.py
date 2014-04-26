@@ -215,4 +215,12 @@ class root:
             else:
                 return self.check_up(),None
                                   
-        
+    def move_in_dir(self):
+        if self.dir == DOWN:
+            self.check_down()
+        elif self.dir == LEFT:
+            self.check_left()
+        elif self.dir == RIGHT:
+            self.check_right()
+        elif self.dir == UP:
+            self.check_up()
