@@ -5,14 +5,15 @@ import numpy as np
 class game:
     def __init__(self):
         self._if = _if.interface(self)
-        #values in self.grid indicate, which tile is stored at the moment
-        self.grid = np.zeros((3,3))
-        #self.grid = np.zeros((cfg.RES_Y/50,cfg.RES_X/50))
-        print(self.grid)
-        self.scroll_up()
-        print(self.grid)
-        self.self_grid_update()
-        print(self.grid)
+        self.grid = np.zeros((cfg.RES_Y/50,cfg.RES_X/50))
+        self.grid[0:3] = cfg.AIR
+
+        #print the self.grid with its methods
+        #print(self.grid)
+        #self.scroll_up()
+        #print('cut first line' ,+self.grid)
+        #self.self_grid_update()
+        #print('add last line with zeros',+self.grid)
 
     def run(self):
         self._if.run()
@@ -24,8 +25,7 @@ class game:
         self.grid = np.delete(self.grid, 0, 0)
 
     def self_grid_update(self):
-        pass
-        #self.grid = np.append(self.grid,np.zeros((1,3)))
+        self.grid = np.vstack([self.grid, np.zeros(cfg.RES_X/50)])
 
 myGame = game()
 myGame.run()
