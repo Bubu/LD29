@@ -9,7 +9,7 @@ class game:
         self._if = _if.interface(self)
         self.grid = np.zeros((RES_Y//50,RES_X//50),dtype=(int,3))
         self.grid[:3,:,0] = AIR
-        self.grid[3,RES_X//100][0] = STUBd
+        self.grid[3,RES_X//100][0] = SUP
         self.roots = []
         self.roots.append(root.root(self,(3,RES_X//100),DOWN))
         #self.roots[0].check_down()
@@ -49,35 +49,35 @@ class game:
                 if newpos[0] > lowest_ypos:
                     lowest_ypos = newpos[0]
                 if dir == DOWN:
-                    self.grid[newpos][0] = STUBd
+                    self.grid[newpos][0] = SUP
                     if olddir == DOWN:
-                        self.grid[oldpos][0] = ROOTv
+                        self.grid[oldpos][0] = UPDOWN
                     elif olddir == RIGHT:
                         self.grid[oldpos][0] = LANGLEd
                     elif olddir == LEFT:
                         self.grid[oldpos][0] = RANGLEd
                 elif dir == UP:
-                    self.grid[newpos][0] = STUBu
+                    self.grid[newpos][0] = SDOWN
                     if olddir == UP:
-                        self.grid[oldpos][0] = ROOTv
+                        self.grid[oldpos][0] = DOWNUP
                     elif olddir == LEFT:
                         self.grid[oldpos][0] = RANGLEu
                     elif olddir == RIGHT:
                         self.grid[oldpos][0] = LANGLEu
                 elif dir == RIGHT:
-                    self.grid[newpos][0] = STUBr
+                    self.grid[newpos][0] = SLEFT
                     if olddir == UP:
                         self.grid[oldpos][0] = RANGLEd
                     elif olddir == DOWN:
                         self.grid[oldpos][0] = RANGLEu
                     elif olddir == RIGHT:
-                        self.grid[oldpos][0] = ROOTh
+                        self.grid[oldpos][0] = LEFTRIGHT
                 elif dir == LEFT:
-                    self.grid[newpos][0] = STUBl
+                    self.grid[newpos][0] = SRIGHT
                     if olddir == UP:
                         self.grid[oldpos][0] = LANGLEd
                     elif olddir == LEFT:
-                        self.grid[oldpos][0] = ROOTh
+                        self.grid[oldpos][0] = RIGHTLEFT
                     elif olddir == DOWN:
                         self.grid[oldpos][0] = LANGLEu
                 self._if.update([oldpos,newpos])
@@ -87,7 +87,15 @@ class game:
             self._if.redrawGrid()
 
     def triggerSplit(self):
-        pass
+        for r in self.roots:
+            oldpos = root.pos
+            olddir = root.dir
+            dir1,dir2 = r.check_split()
+            if dir1 is not None and dir2 is not None:
+                pass
+                #self.grid[oldpos][0] = TILE[]
+        self._if.update([oldpos,newpos1,newpos2])
+        self.roots += self.newroots
         
 myGame = game()
 myGame.run()

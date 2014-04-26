@@ -137,69 +137,82 @@ class root:
                 return None             
         
     def check_split(self):
+        self.game.newroots = []
         old_pos = self.pos
         if self.dir == DOWN:
             if old_pos[1] > 0 and self.game.grid[old_pos[0],old_pos[1]-1][0] in ACCESS:
                 self.pos = (old_pos[0],old_pos[1]-1)
                 self.dir = LEFT
                 if old_pos[1] < RES_X//50 and self.game.grid[old_pos[0],old_pos[1]+1][0] in ACCESS:
-                    self.game.roots.append(root(self.game,(old_pos[0],old_pos[1]+1),RIGHT))
+                    self.game.newroots.append(root(self.game,(old_pos[0],old_pos[1]+1),RIGHT))
+                    return LEFT,RIGHT
                 elif self.game.grid[old_pos[0]+1,old_pos[1]][0] in ACCESS:
-                    self.game.roots.append(root(self.game,(old_pos[0]+1,old_pos[1]),DOWN))
+                    self.game.newroots.append(root(self.game,(old_pos[0]+1,old_pos[1]),DOWN))
+                    return LEFT,DOWN
             elif old_pos[1] < RES_X//50 and self.game.grid[old_pos[0],old_pos[1]+1][0] in ACCESS:
                 self.pos = (old_pos[0],old_pos[1]+1)
                 self.dir = RIGHT
                 if self.game.grid[old_pos[0]+1,old_pos[1]][0] in ACCESS:
-                    self.game.roots.append(root(self.game,(old_pos[0]+1,old_pos[1]),DOWN))
+                    self.game.newroots.append(root(self.game,(old_pos[0]+1,old_pos[1]),DOWN))
+                    return RIGHT,DOWN
             else:
-                self.check_down()
+                return self.check_down(),None
 
         elif self.dir == LEFT:
             if old_pos[1] > 0 and self.game.grid[old_pos[0],old_pos[1]-1][0] in ACCESS:
                 self.pos = (old_pos[0],old_pos[1]-1)
                 self.dir = LEFT
                 if self.game.grid[old_pos[0]+1,old_pos[1]][0] in ACCESS:
-                    self.game.roots.append(root(self.game,(old_pos[0]+1,old_pos[1]),DOWN))
+                    self.game.newroots.append(root(self.game,(old_pos[0]+1,old_pos[1]),DOWN))
+                    return LEFT,DOWN
                 elif self.game.grid[old_pos[0]-1,old_pos[1]][0] in ACCESS:
-                    self.game.roots.append(root(self.game,(old_pos[0]-1,old_pos[1]),UP))
+                    self.game.newroots.append(root(self.game,(old_pos[0]-1,old_pos[1]),UP))
+                    return LEFT,UP
             elif self.game.grid[old_pos[0]+1,old_pos[1]][0] in ACCESS:
                 self.pos = (old_pos[0]+1,old_pos[1])
                 self.dir = DOWN
                 if self.game.grid[old_pos[0]-1,old_pos[1]][0] in ACCESS:
-                    self.game.roots.append(root(self.game,(old_pos[0]-1,old_pos[1]),UP))
+                    self.game.newroots.append(root(self.game,(old_pos[0]-1,old_pos[1]),UP))
+                    return DOWN,UP
             else:
-                self.check_up()
+                return self.check_up(), None
 
         elif self.dir == RIGHT:
             if old_pos[1] < RES_X//50 and self.game.grid[old_pos[0],old_pos[1]+1][0] in ACCESS:
                 self.pos = (old_pos[0],old_pos[1]+1)
                 self.dir = RIGHT
                 if self.game.grid[old_pos[0]+1,old_pos[1]][0] in ACCESS:
-                    self.game.roots.append(root(self.game,(old_pos[0]+1,old_pos[1]),DOWN))
+                    self.game.newroots.append(root(self.game,(old_pos[0]+1,old_pos[1]),DOWN))
+                    return RIGHT,DOWN
                 elif self.game.grid[old_pos[0]-1,old_pos[1]][0] in ACCESS:
-                    self.game.roots.append(root(self.game,(old_pos[0]-1,old_pos[1]),UP))
+                    self.game.newroots.append(root(self.game,(old_pos[0]-1,old_pos[1]),UP))
+                    return RIGHT,UP
             elif self.game.grid[old_pos[0]+1,old_pos[1]][0] in ACCESS:
                 self.pos = (old_pos[0]+1,old_pos[1])
                 self.dir = DOWN
                 if self.game.grid[old_pos[0]-1,old_pos[1]][0] in ACCESS:
-                    self.game.roots.append(root(self.game,(old_pos[0]-1,old_pos[1]),UP))
+                    self.game.newroots.append(root(self.game,(old_pos[0]-1,old_pos[1]),UP))
+                    return DOWN,UP
             else:
-                self.check_up()
+                return self.check_up(),None
 
         elif self.dir == UP:
             if old_pos[1] > 0 and self.game.grid[old_pos[0],old_pos[1]-1][0] in ACCESS:
                 self.pos = (old_pos[0],old_pos[1]-1)
                 self.dir = LEFT
                 if old_pos[1] < RES_X//50 and self.game.grid[old_pos[0],old_pos[1]+1][0] in ACCESS:
-                    self.game.roots.append(root(self.game,(old_pos[0],old_pos[1]+1),RIGHT))
+                    self.game.newroots.append(root(self.game,(old_pos[0],old_pos[1]+1),RIGHT))
+                    return LEFT,RIGHT
                 elif self.game.grid[old_pos[0]-1,old_pos[1]][0] in ACCESS:
-                    self.game.roots.append(root(self.game,(old_pos[0]-1,old_pos[1]),UP))
+                    self.game.newroots.append(root(self.game,(old_pos[0]-1,old_pos[1]),UP))
+                    return LEFT,UP
             elif old_pos[1] < RES_X//50 and self.game.grid[old_pos[0],old_pos[1]+1][0] in ACCESS:
                 self.pos = (old_pos[0],old_pos[1]+1)
                 self.dir = RIGHT
                 if self.game.grid[old_pos[0]-1,old_pos[1]][0] in ACCESS:
-                    self.game.roots.append(root(self.game,(old_pos[0]-1,old_pos[1]),UP))
+                    self.game.newroots.append(root(self.game,(old_pos[0]-1,old_pos[1]),UP))
+                    return RIGHT, UP
             else:
-                self.check_up()
+                return self.check_up(),None
                                   
         
