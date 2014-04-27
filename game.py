@@ -13,16 +13,17 @@ class game:
 
     def setup(self):
         self.energy = ENERGY_MAX
-        self._if.score()
-        self.generator = terrainGenerator.terrainGenerator()
         self.level = 3
+        
+        self.generator = terrainGenerator.terrainGenerator()
+        
         self.grid = np.zeros((RES_Y//50,RES_X//50),dtype=(int,3))
         self.grid[:3,:,0] = AIR
         for i in range(3,RES_Y//50):
             self.grid[i,:,:] = self.generator.getLine()
             self._if.genground(self.level)
             self.level += 1
-
+        self._if.score()
         #set initial root
         self.grid[3,RES_X//100][0] = SUP
         self.roots = []

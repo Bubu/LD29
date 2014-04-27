@@ -15,16 +15,36 @@ class interface:
         self.updateRects = []
         self.initSprites()
 
-        self.basicFont = pg.font.SysFont(None, 30)
+        self.manual()
+
+        self.basicFont = pg.font.SysFont(None, 20)
+
+    def manual(self):
+        maFont = pg.font.SysFont(None, 20)
+        mainpanel = pg.Surface((600,50))
+        left = maFont.render('Arrow Left - Move Left',True, (255,255,255), (0,0,0))
+        down = maFont.render('Arrow Down - Move Down',True, (255,255,255), (0,0,0))
+        right = maFont.render('Arrow Left - Move Right',True, (255,255,255), (0,0,0))
+        split = maFont.render('Space Bar - Split the Roots',True, (255,255,255), (0,0,0))
+        restart = maFont.render('(r)estart Game',True, (255,255,255), (0,0,0))
+        q_uit = maFont.render('(q)uit Game',True, (255,255,255), (0,0,0))
+        mainpanel.blit(left, (0, 10))
+        mainpanel.blit(down, (200, 10))
+        mainpanel.blit(right, (400, 10))
+        mainpanel.blit(split, (0, 30))
+        mainpanel.blit(restart, (200, 30))
+        mainpanel.blit(q_uit, (400, 30))
+        self.updateRects.append(self.screen.blit(mainpanel, (0, RES_Y)))
+
 
     def score(self):
-        energy = pg.Surface((250,50))
-        text = self.basicFont.render('Energy: '+str(self.game.energy),True, (255,255,255), (0,0,0))
-        textRect = text.get_rect()
-        textRect.centerx = energy.get_rect().centerx
-        textRect.centery = energy.get_rect().centery
-        energy.blit(text, textRect)
-        self.updateRects.append(self.screen.blit(energy,(RES_X-250, RES_Y))) 
+        scFont = pg.font.SysFont(None, 20)
+        mainlabel = pg.Surface((150,50))
+        energy = scFont.render('Energy: '+str(self.game.energy),True, (255,255,255), (0,0,0))
+        level = scFont.render('Depthlevel: '+str(self.game.level),True, (255,255,255), (0,0,0))
+        mainlabel.blit(energy, (0, 10))
+        mainlabel.blit(level, (0, 30))
+        self.updateRects.append(self.screen.blit(mainlabel,(RES_X-150, RES_Y))) 
         
     def initSprites(self):
         self.sprites = {AIR:pg.Surface((50,50)),
