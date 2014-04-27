@@ -58,6 +58,10 @@ class interface:
         self.sprites[WATER].fill((0,0,255))
         self.sprites[URANIUM].fill((255,0,0))
         self.sprites[MINERAL].fill((255,255,255))
+        self.grounds = {}
+        self.grounds[0] = (self.sprites[GROUND])
+        self.grounds[1] = (self.sprites[GROUND])
+        self.grounds[2] = (self.sprites[GROUND])
 
     def close(self):
         pg.quit()
@@ -88,8 +92,9 @@ class interface:
 
     def update(self,coord_list):
         for coord in coord_list:
-            self.screen.blit(self.sprites[GROUND],self.getScreenPos(coord))
-            self.screen.blit(self.sprites[self.game.grid[coord][0]],self.getScreenPos(coord))
+            self.screen.blit(self.grounds[self.game.level-RES_Y//50+coord[0]],self.getScreenPos(coord))
+            if self.game.grid[coord][0] != GROUND:
+                self.screen.blit(self.sprites[self.game.grid[coord][0]],self.getScreenPos(coord))
             self.updateRects.append(self.getRect(coord))
             
     def getRect(self,coord):
@@ -100,16 +105,20 @@ class interface:
         self.updateRects = self.screen.get_rect()
 
     def setup(self):
-        #self.screen.fill((196,195,192))
         self.drawGrid()
 
     def drawGrid(self):
         for coord in product(range(RES_Y//50),range(RES_X//50)):
-            self.screen.blit(self.sprites[GROUND],self.getScreenPos(coord))
-            self.screen.blit(self.sprites[self.game.grid[coord][0]],self.getScreenPos(coord))
+            self.screen.blit(self.grounds[self.game.level-RES_Y//50+coord[0]],self.getScreenPos(coord))
+            if self.game.grid[coord][0] != GROUND:
+                self.screen.blit(self.sprites[self.game.grid[coord][0]],self.getScreenPos(coord))
             #pg.draw.circle(self.screen,(0,0,0),(self.getScreenPos(coord)[0]+25,self.getScreenPos(coord)[1]+25),10,1)
 
     def getScreenPos(self,coord):
         y = coord[0] * 50 + OFFSET_Y
         x = coord[1] * 50 + OFFSET_X
         return x,y
+
+    def genground(self,level):
+        self.grounds[level] = self.sprites[GROUND].copy()
+        self.grounds[level].fill((max(40,180-level),max(10,90-level//2),max(4,20-level//90)))

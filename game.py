@@ -12,11 +12,14 @@ class game:
 
     def setup(self):
         self.generator = terrainGenerator.terrainGenerator()
+        self.level = 3
         self.grid = np.zeros((RES_Y//50,RES_X//50),dtype=(int,3))
         self.grid[:3,:,0] = AIR
         #self.grid[6,1:-1,0] = STONE1
         for i in range(3,RES_Y//50):
             self.grid[i,:,:] = self.generator.getLine()
+            self._if.genground(self.level)
+            self.level += 1
 
         #set initial root
         self.grid[3,RES_X//100][0] = SUP
@@ -30,7 +33,6 @@ class game:
         self._if.close()
 
     def scroll_up(self):
-        print(np.where(self.grid == 10))
         self.grid = np.roll(self.grid,-1,0)
         for r in self.roots:
             r.pos = (r.pos[0]-1,r.pos[1])
@@ -40,6 +42,8 @@ class game:
 
     def grid_update(self):
         self.grid[-1,:,:] = self.generator.getLine()
+        self._if.genground(self.level)
+        self.level += 1
 
     def move(self,check_dir):
         self.lowest_ypos = 0
