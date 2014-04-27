@@ -17,10 +17,10 @@ class interface:
 
         self.manual()
 
-        self.basicFont = pg.font.SysFont(None, 20)
+        self.basicFont = pg.font.Font(PATH + 'EBGaramond08-Regular.ttf', 17)
 
     def manual(self):
-        maFont = pg.font.SysFont(None, 20)
+        maFont = pg.font.Font(PATH + 'EBGaramond08-Regular.ttf', 17)
         mainpanel = pg.Surface((600,50))
         left = maFont.render('Arrow Left - Move Left',True, (255,255,255), (0,0,0))
         down = maFont.render('Arrow Down - Move Down',True, (255,255,255), (0,0,0))
@@ -38,7 +38,7 @@ class interface:
 
 
     def score(self):
-        scFont = pg.font.SysFont(None, 20)
+        scFont = pg.font.Font(PATH + 'EBGaramond08-Regular.ttf', 17)
         mainlabel = pg.Surface((150,50))
         energy = scFont.render('Energy: '+str(self.game.energy),True, (255,255,255), (0,0,0))
         level = scFont.render('Depthlevel: '+str(self.game.level),True, (255,255,255), (0,0,0))
@@ -166,8 +166,8 @@ class interface:
 
     def game_over(self):
         game_over = pg.Surface((300,100))
-        goFont = pg.font.SysFont(None, 48)
-        reFont = pg.font.SysFont(None, 25)
+        goFont = pg.font.Font(PATH + 'EBGaramond08-Regular.ttf', 48)
+        reFont = pg.font.Font(PATH + 'EBGaramond08-Regular.ttf', 21)
         text = goFont.render('Game Over',True, (255,255,255), (0,0,0))
         textRect = text.get_rect()
         textRect.x = game_over.get_rect().centerx-text.get_width()//2
