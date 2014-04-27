@@ -39,10 +39,13 @@ class game:
 
     def scroll_up(self):
         self.grid = np.roll(self.grid,-1,0)
+        remove = []
         for r in self.roots:
             r.pos = (r.pos[0]-1,r.pos[1])
             if r.pos[0] < 0:
-                self.roots.remove(r)
+                remove.append(r)
+        for rem in remove:
+            self.roots.remove(rem)
         self.grid_update()
 
     def grid_update(self):
@@ -158,6 +161,8 @@ class game:
 
     def updateSingleTile(self,root,dir,olddir,oldpos):
         newpos = root.pos
+        if newpos[0] < 0 or newpos[1] < 0:
+            raise ValueError("<0: Old: ", olddir," New: ", dir)
         self.doAction(self.grid[newpos][0],root)
         if newpos[0] > self.lowest_ypos:
             self.lowest_ypos = newpos[0]
@@ -204,6 +209,10 @@ class game:
         d = {DOWN:(1,0),UP:(-1,0),LEFT:(0,-1),RIGHT:(0,1)}
         newpos1 = oldpos[0] + d[dir1][0],oldpos[1] + d[dir1][1]
         newpos2 = oldpos[0] + d[dir2][0],oldpos[1] + d[dir2][1]
+        if newpos1[0] < 0 or newpos1[1] < 0:
+            raise ValueError("<0: New: ", dir1,dir2, newpos1)
+        if newpos2[0] < 0 or newpos2[1] < 0:
+            raise ValueError("<0: New: ", dir1,dir2, newpos2)
         return newpos1,newpos2
 
     def reset(self):
