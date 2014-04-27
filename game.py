@@ -7,14 +7,16 @@ import numpy as np
 
 class game:
     def __init__(self):
+        self.energy = ENERGY_MAX
         self._if = _if.interface(self)
         self.setup()
 
     def setup(self):
+        self.energy = ENERGY_MAX
+        self._if.score()
         self.generator = terrainGenerator.terrainGenerator()
         self.grid = np.zeros((RES_Y//50,RES_X//50),dtype=(int,3))
         self.grid[:3,:,0] = AIR
-        #self.grid[6,1:-1,0] = STONE1
         for i in range(3,RES_Y//50):
             self.grid[i,:,:] = self.generator.getLine()
 
@@ -22,6 +24,9 @@ class game:
         self.grid[3,RES_X//100][0] = SUP
         self.roots = []
         self.roots.append(root.root(self,(3,RES_X//100),DOWN))
+
+        self.game_over = False
+        
 
     def run(self):
         self._if.run()
@@ -54,7 +59,10 @@ class game:
                 dir = root.check_left()
             if dir is not None:
                 self.updateSingleTile(root,dir,olddir,oldpos)
+                self.energy -= 1
+                self._if.score()
         self.checkScroll()
+        
 
     def triggerSplit(self):
         self.newroots = []
@@ -133,8 +141,12 @@ class game:
                     self.grid[newpos1][0] = newtile1
                     self.grid[newpos2][0] = newtile2
                     self._if.update([oldpos,newpos1,newpos2])
+                    self.energy -= 2
+                    self._if.score()             
                 else:
                     self.updateSingleTile(r,dir1,olddir,oldpos)
+                    self.energy -= 1
+                    self._if.score()
         self.roots += self.newroots
         self.checkScroll()
 
@@ -190,6 +202,15 @@ class game:
     def reset(self):
         self.setup()
         self._if.redrawGrid()
+
+    def add_energy(self,val):
+        if self.energy < ENERGY_MAX-val:
+            self.energy += val
+
+    def check_energy(self):
+        if self.energy <= 0:
+            self.game_over = True
+            self._if.game_over()
     
 myGame = game()
 myGame.run()

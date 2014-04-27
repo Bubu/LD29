@@ -10,10 +10,21 @@ class interface:
     def __init__(self,game):
         self.game = game
         pg.init()
-        self.screen = pg.display.set_mode((RES_X, RES_Y))
+        self.screen = pg.display.set_mode((RES_X, RES_Y+50))
         pg.display.set_caption(GAME_NAME)
         self.updateRects = []
         self.initSprites()
+
+        self.basicFont = pg.font.SysFont(None, 30)
+
+    def score(self):
+        energy = pg.Surface((250,50))
+        text = self.basicFont.render('Energy: '+str(self.game.energy),True, (255,255,255), (0,0,0))
+        textRect = text.get_rect()
+        textRect.centerx = energy.get_rect().centerx
+        textRect.centery = energy.get_rect().centery
+        energy.blit(text, textRect)
+        self.updateRects.append(self.screen.blit(energy,(RES_X-250, RES_Y))) 
         
     def initSprites(self):
         self.sprites = {AIR:pg.Surface((50,50)),
@@ -71,15 +82,18 @@ class interface:
             if evt.type == KEYUP and evt.key == K_F4 and bool(evt.mod & KMOD_ALT):
                 return
             else:
-                if evt.type == KEYUP and evt.key == K_DOWN:
-                    self.game.move(DOWN)
-                elif evt.type == KEYUP and evt.key == K_RIGHT:
-                    self.game.move(RIGHT)
-                elif evt.type == KEYUP and evt.key == K_LEFT:
-                    self.game.move(LEFT)
-                elif evt.type == KEYUP and evt.key == K_SPACE:
-                    self.game.triggerSplit()
-                elif evt.type == KEYUP and evt.key == K_r:
+                self.game.check_energy()
+                if not self.game.game_over:
+                    if evt.type == KEYUP and evt.key == K_DOWN:
+                        self.game.move(DOWN)
+                    elif evt.type == KEYUP and evt.key == K_RIGHT:
+                        self.game.move(RIGHT)
+                    elif evt.type == KEYUP and evt.key == K_LEFT:
+                        self.game.move(LEFT)
+                    elif evt.type == KEYUP and evt.key == K_SPACE:
+                        self.game.triggerSplit()
+
+                if evt.type == KEYUP and evt.key == K_r:
                     self.game.reset()
                 
                 pg.display.update(self.updateRects)
@@ -112,3 +126,12 @@ class interface:
         y = coord[0] * 50 + OFFSET_Y
         x = coord[1] * 50 + OFFSET_X
         return x,y
+
+    def game_over(self):
+        goFont = pg.font.SysFont(None, 48)
+        text = goFont.render('Game Over',True, (255,255,255), (0,0,0))
+        textRect = text.get_rect()
+        textRect.x = self.screen.get_rect().centerx-text.get_width()//2
+        textRect.y = self.screen.get_rect().centery-text.get_height()//2
+        self.screen.blit(text, textRect)
+        self.updateRects.append(self.screen.blit(text,(textRect.x, textRect.y)))
