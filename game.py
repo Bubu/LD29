@@ -80,8 +80,8 @@ class game:
             if dir1 is not None:
                 if dir2 is not None:
                     newpos1,newpos2 = self.getnewpos(oldpos,dir1,dir2)
-                    self.doAction(self.grid[newpos1][0])
-                    self.doAction(self.grid[newpos2][0])
+                    self.doAction(self.grid[newpos1][0],r)
+                    self.doAction(self.grid[newpos2][0],r)
                     self.lowest_ypos = max(self.lowest_ypos,newpos1[0],newpos2[0])
                     if olddir == UP:
                         if dir1 == RIGHT:
@@ -158,7 +158,7 @@ class game:
 
     def updateSingleTile(self,root,dir,olddir,oldpos):
         newpos = root.pos
-        self.doAction(self.grid[newpos][0])
+        self.doAction(self.grid[newpos][0],root)
         if newpos[0] > self.lowest_ypos:
             self.lowest_ypos = newpos[0]
         if dir == DOWN:
@@ -215,9 +215,15 @@ class game:
             self.game_over = True
             self._if.game_over()
             
-    def doAction(self,type):
+    def doAction(self,type,root):
         if type == WATER:
             self.energy += 10
+        if type == URANIUM:
+            self.energy -= 10
+        if type == MINERAL:
+            root.setStoneCrusher()
+        if type in STONES:
+            root.eatStone()
     
 myGame = game()
 myGame.run()

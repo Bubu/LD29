@@ -5,12 +5,12 @@ from random import random, choice
 class terrainGenerator:
     def __init__(self):
         self.path = [RES_X//100]
-        self.p_stone = 0.2
+        self.p_stone = 0.01
         self.p_connected = 2
         #self.p_water = 0.05
         #self.p_uranium = 0.04
         #p_variations holds probabilities for water, uranium, mineral
-        self.p_variations = [0.05, 0.01, 0.21]
+        self.p_variations = [0.01, 0.01, 0.005]
 
     def getLine(self):
         line = np.zeros((1,RES_X//50),dtype=(int,3))
@@ -21,7 +21,7 @@ class terrainGenerator:
         self.checkPath(line)
         self.refresh_ground(line)
         self.refresh_stones(line)
-        self.p_stone = min(0.8,self.p_stone +0.005)
+        self.p_stone = min(0.8,self.p_stone +0.001)
         return line
 
     def checkPath(self,line):
@@ -57,4 +57,5 @@ class terrainGenerator:
         for i in range(RES_X//50):
             if line[0,i,0] == STONE1:
                 line[0,i,0] = choice(STONES)
+
 
