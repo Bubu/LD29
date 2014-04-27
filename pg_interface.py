@@ -82,8 +82,9 @@ class interface:
                 return
             if evt.type == KEYUP and evt.key == K_F4 and bool(evt.mod & KMOD_ALT):
                 return
+            if evt.type == KEYUP and evt.key == K_q:
+                return
             else:
-                self.game.check_energy()
                 if not self.game.game_over:
                     if evt.type == KEYUP and evt.key == K_DOWN:
                         self.game.move(DOWN)
@@ -96,9 +97,10 @@ class interface:
 
                 if evt.type == KEYUP and evt.key == K_r:
                     self.game.reset()
-                
+                self.game.check_energy()
                 pg.display.update(self.updateRects)
                 self.updateRects = []
+                
 
     def update(self,coord_list):
         for coord in coord_list:
@@ -129,10 +131,18 @@ class interface:
         return x,y
 
     def game_over(self):
+        game_over = pg.Surface((300,100))
         goFont = pg.font.SysFont(None, 48)
+        reFont = pg.font.SysFont(None, 25)
         text = goFont.render('Game Over',True, (255,255,255), (0,0,0))
         textRect = text.get_rect()
-        textRect.x = self.screen.get_rect().centerx-text.get_width()//2
-        textRect.y = self.screen.get_rect().centery-text.get_height()//2
+        textRect.x = game_over.get_rect().centerx-text.get_width()//2
+        textRect.y = game_over.get_rect().centery-2*text.get_height()//3
+        re_text = reFont.render('(r)estart or (q)uit',True, (255,255,255), (0,0,0))
+        re_textRect = re_text.get_rect()
+        re_textRect.x = game_over.get_rect().centerx-re_text.get_width()//2
+        re_textRect.y = game_over.get_rect().centery+re_text.get_height()
+        game_over.blit(text, textRect)
+        game_over.blit(re_text, re_textRect)
         self.screen.blit(text, textRect)
-        self.updateRects.append(self.screen.blit(text,(textRect.x, textRect.y)))
+        self.updateRects.append(self.screen.blit(game_over,(RES_X//2-game_over.get_width()//2, RES_Y//2-game_over.get_height()//2)))
