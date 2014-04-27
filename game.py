@@ -8,6 +8,9 @@ import numpy as np
 class game:
     def __init__(self):
         self._if = _if.interface(self)
+        self.setup()
+
+    def setup(self):
         self.generator = terrainGenerator.terrainGenerator()
         self.grid = np.zeros((RES_Y//50,RES_X//50),dtype=(int,3))
         self.grid[:3,:,0] = AIR
@@ -183,6 +186,10 @@ class game:
         newpos1 = oldpos[0] + d[dir1][0],oldpos[1] + d[dir1][1]
         newpos2 = oldpos[0] + d[dir2][0],oldpos[1] + d[dir2][1]
         return newpos1,newpos2
+
+    def reset(self):
+        self.setup()
+        self._if.redrawGrid()
     
 myGame = game()
 myGame.run()

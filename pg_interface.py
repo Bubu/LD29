@@ -79,6 +79,8 @@ class interface:
                     self.game.move(LEFT)
                 elif evt.type == KEYUP and evt.key == K_SPACE:
                     self.game.triggerSplit()
+                elif evt.type == KEYUP and evt.key == K_r:
+                    self.game.reset()
                 
                 pg.display.update(self.updateRects)
                 self.updateRects = []
