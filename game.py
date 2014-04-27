@@ -23,11 +23,13 @@ class game:
         self.grid = np.roll(self.grid,-1,0)
         for r in self.roots:
             r.pos = (r.pos[0]-1,r.pos[1])
-            if r.pos[0] < 0:
-                roots.remove(r)
+            if r.pos[0] < 1:
+                self.roots.remove(r)
+        self.grid_update()
 
     def grid_update(self):
         self.grid[-1,:,0] = GROUND #TODO: Generate new, random tiles
+        #print(self.grid[0:20,:,0])
 
     def move(self,check_dir):
         self.lowest_ypos = 0
@@ -45,6 +47,7 @@ class game:
         self.checkScroll()
 
     def triggerSplit(self):
+        self.newroots = []
         for r in self.roots:
             oldpos = r.pos
             olddir = r.dir
@@ -164,7 +167,7 @@ class game:
     def checkScroll(self):
         if self.lowest_ypos >= (RES_Y//50-5):
             self.scroll_up()
-            self.grid_update()
+            #self.grid_update()
             self._if.redrawGrid()
             
     def getnewpos(self,oldpos,dir1,dir2):

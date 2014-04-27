@@ -137,7 +137,6 @@ class root:
                 return None             
         
     def check_split(self):
-        self.game.newroots = []
         old_pos = self.pos
         if self.dir == DOWN:
             if old_pos[1] > 0 and self.game.grid[old_pos[0],old_pos[1]-1][0] in ACCESS:
@@ -214,6 +213,8 @@ class root:
                     return RIGHT,UP
             else:
                 return self.check_up(),None
+
+        
                                   
     def move_in_dir(self):
         if self.dir == DOWN:
