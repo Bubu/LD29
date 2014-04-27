@@ -98,6 +98,11 @@ class interface:
                         self.game.move(LEFT)
                     elif evt.type == KEYUP and evt.key == K_SPACE:
                         self.game.triggerSplit()
+                    elif evt.type == KEYUP and evt.key == K_d:
+                        import pdb
+                        import numpy as np
+                        np.set_printoptions(linewidth=200)
+                        pdb.set_trace()
 
                 if evt.type == KEYUP and evt.key == K_r:
                     self.game.reset()
