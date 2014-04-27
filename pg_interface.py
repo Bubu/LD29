@@ -19,6 +19,9 @@ class interface:
         self.sprites = {AIR:pg.Surface((50,50)),
                         GROUND:pg.Surface((50,50)),
                         STONE1:pg.Surface((50,50)),
+                        WATER:pg.Surface((50,50)),
+                        URANIUM:pg.Surface((50,50)),
+                        MINERAL:pg.Surface((50,50)),
                         SUP:pg.image.load(PATH+'up.png').convert_alpha(),
                         SDOWN:pg.image.load(PATH+'down.png').convert_alpha(),
                         SLEFT:pg.image.load(PATH+'left.png').convert_alpha(),
@@ -51,7 +54,9 @@ class interface:
         self.sprites[AIR].fill((50,50,200))
         self.sprites[GROUND].fill((139,69,19))
         self.sprites[STONE1].fill((139,139,139))
-        
+        self.sprites[WATER].fill((0,0,255))
+        self.sprites[URANIUM].fill((255,0,0))
+        self.sprites[MINERAL].fill((255,255,255))
 
     def close(self):
         pg.quit()
@@ -99,7 +104,7 @@ class interface:
         for coord in product(range(RES_Y//50),range(RES_X//50)):
             self.screen.blit(self.sprites[GROUND],self.getScreenPos(coord))
             self.screen.blit(self.sprites[self.game.grid[coord][0]],self.getScreenPos(coord))
-            pg.draw.circle(self.screen,(0,0,0),(self.getScreenPos(coord)[0]+25,self.getScreenPos(coord)[1]+25),10,1)
+            #pg.draw.circle(self.screen,(0,0,0),(self.getScreenPos(coord)[0]+25,self.getScreenPos(coord)[1]+25),10,1)
 
     def getScreenPos(self,coord):
         y = coord[0] * 50 + OFFSET_Y
