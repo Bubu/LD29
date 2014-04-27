@@ -96,6 +96,7 @@ class interface:
         for coord in product(range(RES_Y//50),range(RES_X//50)):
             self.screen.blit(self.sprites[GROUND],self.getScreenPos(coord))
             self.screen.blit(self.sprites[self.game.grid[coord][0]],self.getScreenPos(coord))
+            pg.draw.circle(self.screen,(0,0,0),(self.getScreenPos(coord)[0]+25,self.getScreenPos(coord)[1]+25),10,1)
 
     def getScreenPos(self,coord):
         y = coord[0] * 50 + OFFSET_Y
