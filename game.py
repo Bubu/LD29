@@ -46,10 +46,14 @@ class game:
 
     def triggerSplit(self):
         for r in self.roots:
+            dir1 = None
+            dir2 = None
             oldpos = r.pos
             olddir = r.dir
+            t = r.check_split()
+            print(t)
             try:
-                dir1,dir2 = r.check_split()
+                dir1,dir2 = t
             except TypeError:
                 print("ERROR: ", oldpos,olddir,dir1,dir2)
             if dir1 is not None:

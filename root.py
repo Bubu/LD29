@@ -155,6 +155,8 @@ class root:
                 if self.game.grid[old_pos[0]+1,old_pos[1]][0] in ACCESS:
                     self.game.newroots.append(root(self.game,(old_pos[0]+1,old_pos[1]),DOWN))
                     return DOWN,RIGHT
+                else:
+                    return RIGHT,None
             else:
                 return self.check_down(),None
 
@@ -174,6 +176,8 @@ class root:
                 if self.game.grid[old_pos[0]-1,old_pos[1]][0] in ACCESS:
                     self.game.newroots.append(root(self.game,(old_pos[0]-1,old_pos[1]),UP))
                     return UP,DOWN
+                else:
+                    return DOWN,None
             else:
                 return self.check_up(), None
 
@@ -193,6 +197,8 @@ class root:
                 if self.game.grid[old_pos[0]-1,old_pos[1]][0] in ACCESS:
                     self.game.newroots.append(root(self.game,(old_pos[0]-1,old_pos[1]),UP))
                     return DOWN,UP
+                else:
+                    return DOWN,None
             else:
                 return self.check_up(),None
 
@@ -212,6 +218,8 @@ class root:
                 if self.game.grid[old_pos[0]-1,old_pos[1]][0] in ACCESS:
                     self.game.newroots.append(root(self.game,(old_pos[0]-1,old_pos[1]),UP))
                     return RIGHT,UP
+                else:
+                    return RIGHT,None
             else:
                 return self.check_up(),None
                                   
