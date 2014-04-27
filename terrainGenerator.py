@@ -5,12 +5,12 @@ from random import random, choice
 class terrainGenerator:
     def __init__(self):
         self.path = [RES_X//100]
-        self.p_stone = 0.6
+        self.p_stone = 0.2
         self.p_connected = 2
         #self.p_water = 0.05
         #self.p_uranium = 0.04
         #p_variations holds probabilities for water, uranium, mineral
-        self.p_variations = [0.05, 0.04, 0.01]
+        self.p_variations = [0.1, 0.01, 0.21]
 
     def getLine(self):
         line = np.zeros((1,RES_X//50),dtype=(int,3))
