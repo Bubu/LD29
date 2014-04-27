@@ -113,7 +113,7 @@ class interface:
 
     def redrawGrid(self):
         self.drawGrid()
-        self.updateRects = self.screen.get_rect()
+        self.updateRects.append(self.screen.get_rect())
 
     def setup(self):
         #self.screen.fill((196,195,192))
@@ -144,5 +144,4 @@ class interface:
         re_textRect.y = game_over.get_rect().centery+re_text.get_height()
         game_over.blit(text, textRect)
         game_over.blit(re_text, re_textRect)
-        self.screen.blit(text, textRect)
         self.updateRects.append(self.screen.blit(game_over,(RES_X//2-game_over.get_width()//2, RES_Y//2-game_over.get_height()//2)))

@@ -10,7 +10,7 @@ class terrainGenerator:
         #self.p_water = 0.05
         #self.p_uranium = 0.04
         #p_variations holds probabilities for water, uranium, mineral
-        self.p_variations = [0.1, 0.01, 0.21]
+        self.p_variations = [0.05, 0.01, 0.21]
 
     def getLine(self):
         line = np.zeros((1,RES_X//50),dtype=(int,3))

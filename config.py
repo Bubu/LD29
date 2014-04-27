@@ -7,7 +7,7 @@ RES_Y = 750
 OFFSET_X = 0
 OFFSET_Y = 0
 
-ENERGY_MAX = 4
+ENERGY_MAX = 20
 
 #Game Constants. Don't change!
 appdir = os.path.dirname(sys.argv[0])
