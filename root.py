@@ -22,6 +22,10 @@ class root:
                 self.pos = (self.pos[0],self.pos[1]+1)
                 self.dir = RIGHT
                 return RIGHT
+            elif self.game.grid[self.pos[0]-1][self.pos[1]][0] in ACCESS:
+                self.pos = (self.pos[0]-1,self.pos[1])
+                self.dir = UP
+                return UP
             else:
                 return None
         elif self.pos[1] >= RES_X//100:
@@ -33,6 +37,10 @@ class root:
                 self.pos = (self.pos[0],self.pos[1]-1)
                 self.dir = LEFT
                 return LEFT
+            elif self.game.grid[self.pos[0]-1][self.pos[1]][0] in ACCESS:
+                self.pos = (self.pos[0]-1,self.pos[1])
+                self.dir = UP
+                return UP
             else:
                 return None
 
