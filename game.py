@@ -48,20 +48,17 @@ class game:
 
     def triggerSplit(self):
         self.newroots = []
+        self.lowest_ypos = 0
         for r in self.roots:
             dir1 = None
             dir2 = None
             oldpos = r.pos
             olddir = r.dir
-            t = r.check_split()
-            print(t)
-            try:
-                dir1,dir2 = t
-            except TypeError:
-                print("ERROR: ", oldpos,olddir,dir1,dir2)
+            dir1,dir2 = r.check_split()
             if dir1 is not None:
                 if dir2 is not None:
                     newpos1,newpos2 = self.getnewpos(oldpos,dir1,dir2)
+                    self.lowest_ypos = max(self.lowest_ypos,newpos1[0],newpos2[0])
                     if olddir == UP:
                         if dir1 == RIGHT:
                             if dir2 == LEFT:
@@ -129,6 +126,7 @@ class game:
                 else:
                     self.updateSingleTile(r,dir1,olddir,oldpos)
         self.roots += self.newroots
+        self.checkScroll()
 
     def updateSingleTile(self,root,dir,olddir,oldpos):
         newpos = root.pos
