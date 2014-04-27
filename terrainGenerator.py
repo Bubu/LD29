@@ -4,6 +4,7 @@ from random import random, choice
 
 class terrainGenerator:
     def __init__(self):
+        self.counter = 0
         self.path = [RES_X//100]
         self.p_stone = 0.01
         self.p_connected = 2
@@ -22,6 +23,16 @@ class terrainGenerator:
         self.refresh_ground(line)
         self.refresh_stones(line)
         self.p_stone = min(0.8,self.p_stone +0.001)
+        #DEBUGGING
+        #if self.counter == 1:
+        #    line[0,RES_X//100,0]= STONE1            
+        #    line[0,RES_X//100+1,0]= GROUND            
+        #    line[0,RES_X//100+2,0]= STONE1
+        #if self.counter == 2:
+        #    line[0,RES_X//100,0]= STONE1            
+        #    line[0,RES_X//100+1,0]= STONE1            
+        #    line[0,RES_X//100+2,0]= STONE1
+        self.counter += 1
         return line
 
     def checkPath(self,line):
