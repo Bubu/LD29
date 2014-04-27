@@ -21,6 +21,7 @@ class terrainGenerator:
         self.checkPath(line)
         self.refresh_ground(line)
         self.refresh_stones(line)
+        self.p_stone = min(0.8,self.p_stone +0.005)
         return line
 
     def checkPath(self,line):
@@ -29,7 +30,7 @@ class terrainGenerator:
             if line[0,x,0] in ACCESS:
                 havePath = True
         if not havePath:
-            line[0,choice(self.path),0] = GROUND #ACCESS
+            line[0,choice(self.path),0] = GROUND
         newpath = []
         for x in self.path:
             if line[0,x,0] in ACCESS:
