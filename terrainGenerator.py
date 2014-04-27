@@ -20,6 +20,7 @@ class terrainGenerator:
                 line[0,i,0] = STONE1
         self.checkPath(line)
         self.refresh_ground(line)
+        self.refresh_stones(line)
         return line
 
     def checkPath(self,line):
@@ -50,4 +51,9 @@ class terrainGenerator:
                     r = random()
                     if r < self.p_variations[j]:
                         line[0,i,0] = ACCESS[j+1]
-                
+
+    def refresh_stones(self,line):       
+        for i in range(RES_X//50):
+            if line[0,i,0] == STONE1:
+                line[0,i,0] = choice(STONES)
+
