@@ -1,14 +1,21 @@
 from config import *
 
 import pg_interface as _if
+import terrainGenerator
 import root
 import numpy as np
 
 class game:
     def __init__(self):
         self._if = _if.interface(self)
+        self.generator = terrainGenerator.terrainGenerator()
         self.grid = np.zeros((RES_Y//50,RES_X//50),dtype=(int,3))
         self.grid[:3,:,0] = AIR
+        #self.grid[6,1:-1,0] = STONE1
+        for i in range(3,RES_Y//50):
+            self.grid[i,:,:] = self.generator.getLine()
+
+        #set initial root
         self.grid[3,RES_X//100][0] = SUP
         self.roots = []
         self.roots.append(root.root(self,(3,RES_X//100),DOWN))
@@ -20,16 +27,16 @@ class game:
         self._if.close()
 
     def scroll_up(self):
+        print(np.where(self.grid == 10))
         self.grid = np.roll(self.grid,-1,0)
         for r in self.roots:
             r.pos = (r.pos[0]-1,r.pos[1])
-            if r.pos[0] < 1:
+            if r.pos[0] < 0:
                 self.roots.remove(r)
         self.grid_update()
 
     def grid_update(self):
-        self.grid[-1,:,0] = GROUND #TODO: Generate new, random tiles
-        #print(self.grid[0:20,:,0])
+        self.grid[-1,:,:] = self.generator.getLine()
 
     def move(self,check_dir):
         self.lowest_ypos = 0
@@ -169,14 +176,12 @@ class game:
     def checkScroll(self):
         if self.lowest_ypos >= (RES_Y//50-5):
             self.scroll_up()
-            #self.grid_update()
             self._if.redrawGrid()
             
     def getnewpos(self,oldpos,dir1,dir2):
         d = {DOWN:(1,0),UP:(-1,0),LEFT:(0,-1),RIGHT:(0,1)}
         newpos1 = oldpos[0] + d[dir1][0],oldpos[1] + d[dir1][1]
         newpos2 = oldpos[0] + d[dir2][0],oldpos[1] + d[dir2][1]
-        #print(newpos1,newpos2)
         return newpos1,newpos2
     
 myGame = game()

@@ -18,6 +18,7 @@ class interface:
     def initSprites(self):
         self.sprites = {AIR:pg.Surface((50,50)),
                         GROUND:pg.Surface((50,50)),
+                        STONE1:pg.Surface((50,50)),
                         SUP:pg.image.load(PATH+'up.png').convert_alpha(),
                         SDOWN:pg.image.load(PATH+'down.png').convert_alpha(),
                         SLEFT:pg.image.load(PATH+'left.png').convert_alpha(),
@@ -48,7 +49,9 @@ class interface:
                         RIGHTLEFTDOWN:pg.image.load(PATH+'rightleftdown.png').convert_alpha()
                         }
         self.sprites[AIR].fill((50,50,200))
-        self.sprites[GROUND].fill((139,69,19))        
+        self.sprites[GROUND].fill((139,69,19))
+        self.sprites[STONE1].fill((139,139,139))
+        
 
     def close(self):
         pg.quit()
