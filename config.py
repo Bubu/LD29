@@ -2,8 +2,15 @@ import os,sys
 import pygame as pg
 from pygame.locals import *
 
-GAME_NAME = 'under the surface'
-RES_X = 1600
+appdir = os.path.dirname(sys.argv[0])
+PATH = os.path.join(appdir, "res") + os.sep
+
+p = os.path.join(appdir, '..')
+p = os.path.join(p, 'settings.txt')
+f = open(p)
+
+GAME_NAME = 'Game of Roots'
+RES_X = 1300
 RES_Y = 800
 
 OFFSET_X = 0
@@ -23,11 +30,13 @@ P_MINERAL2 = 0.002
 VAL_MINERAL2 = 100
 P_MINERAL3 = 0.002
 VAL_MINERAL3 = 10
-#P_MINERAL3
+
+for line in f:
+    exec(line)
+f.close()
 
 #Game Constants. Don't change!
-appdir = os.path.dirname(sys.argv[0])
-PATH = os.path.join(appdir, "res") + os.sep
+
 FONT = 'DISTRO.ttf'
 FONT2 = 'DISTROB.ttf'
 MUSICFILE = 'roots.ogg'

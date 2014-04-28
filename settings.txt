@@ -1,0 +1,20 @@
+# Resolution Settings. Adjust in increments of 50.
+# RES_Y is actually 50 more than entered here.
+RES_X = 1300
+RES_Y = 800
+
+# Starting energy.
+ENERGY_MAX = 200
+
+# Parameters for the random generator
+P_STONE = 0.001
+P_WATER = 0.01
+VAL_WATER = 10
+P_URANIUM = 0.01
+VAL_URANIUM = 50
+P_MINERAL = 0.005
+VAL_MINERAL = 3
+P_MINERAL2 = 0.002
+VAL_MINERAL2 = 100
+P_MINERAL3 = 0.002
+VAL_MINERAL3 = 10

@@ -91,6 +91,9 @@ class interface:
                        S_WATER:pg.mixer.Sound(PATH+'water.wav'),
                        S_STONE_CRUSH:pg.mixer.Sound(PATH+'stone_crush.wav'),
                        S_URANIUM:pg.mixer.Sound(PATH+'uranium.wav')}
+
+        for s in self.sounds.values():
+             s.set_volume(0.3)
         pg.mixer.music.load(PATH + MUSICFILE)
         pg.mixer.music.set_volume(0.5)
         pg.mixer.music.set_endevent(MUSIC_END)
