@@ -25,9 +25,9 @@ executables = [
     Executable(PROGRAM_NAME + '.py', base=base)
 ]
 
-setup(name='Ludum Dare 29 Game',
+setup(name='Game of Roots',
       version = '0.1',
-      description = 'SciVis 13/14 Project by Stephan Waeldchen, Eric Zimmermann and Marcus Hoffmann',
+      description = 'Ludum Dare 29 Game by Stephan Waeldchen, Eric Zimmermann and Marcus Hoffmann',
       options = dict(build_exe = buildOptions),
       executables = executables)
       
