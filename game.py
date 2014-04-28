@@ -8,6 +8,7 @@ import numpy as np
 class game:
     def __init__(self):
         self.energy = ENERGY_MAX
+        self.depthscore = 15
         self._if = _if.interface(self)
         self.setup()
 
@@ -19,7 +20,7 @@ class game:
         self.initialTerrain()
         
         self.decals = []
-        self.decals.append(decal(PLANT,0,RES_X//2-18,150,100))
+        self.decals.append(decal(PLANT,0,(RES_X//100)*50-18,150,100))
         self.roots = []
         self.roots.append(root.root(self,(3,RES_X//100),DOWN))
         
@@ -33,7 +34,7 @@ class game:
             self._if.genground(self.level)
             self.level += 1
         self.grid[3,RES_X//100][0] = SUP
-    
+
     def run(self):
         self._if.run()
         
@@ -232,6 +233,9 @@ class game:
     def check_energy(self):
         if self.energy <= 0:
             self.game_over = True
+            if self.level > self.depthscore:
+                self.depthscore = self.level
+            self._if.refresh_depthscore()
             self._if.game_over()
             
     def doAction(self,type,root):

@@ -1,13 +1,20 @@
 import os,sys
 
 GAME_NAME = 'under the surface'
-RES_X = 1300
-RES_Y = 750
+RES_X = 1650
+RES_Y = 800
 
 OFFSET_X = 0
 OFFSET_Y = 0
 
 ENERGY_MAX = 20
+
+#TerrainGenerator
+P_WATER = 0.01
+P_URANIUM = 0.01
+P_MINERAL = 0.005
+#P_MINERAL2
+#P_MINERAL3
 
 #Game Constants. Don't change!
 appdir = os.path.dirname(sys.argv[0])
@@ -61,6 +68,8 @@ STONE3 = 105
 URANIUM = 101
 WATER = 102
 MINERAL = 103
+
+PLANT = 1000
 
 STONES = [STONE1,STONE2,STONE3]
 ACCESS = [GROUND,WATER,URANIUM,MINERAL]
