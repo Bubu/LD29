@@ -12,26 +12,28 @@ class game:
         self.setup()
 
     def setup(self):
+        self.game_over = False
         self.energy = ENERGY_MAX
-        self.level = 3
-        
+        self.level = 3       
         self.generator = terrainGenerator.terrainGenerator()
+        self.initialTerrain()
         
-        self.grid = np.zeros((RES_Y//50,RES_X//50),dtype=(int,3))
+        self.decals = []
+        self.decals.append(decal(PLANT,0,RES_X//2-18,150,100))
+        self.roots = []
+        self.roots.append(root.root(self,(3,RES_X//100),DOWN))
+        
+        self._if.score()
+        
+    def initialTerrain(self):
+        self.grid = np.zeros((RES_Y//50,RES_X//50),dtype=(int,2))
         self.grid[:3,:,0] = AIR
         for i in range(3,RES_Y//50):
             self.grid[i,:,:] = self.generator.getLine()
             self._if.genground(self.level)
             self.level += 1
-        self._if.score()
-        #set initial root
         self.grid[3,RES_X//100][0] = SUP
-        self.roots = []
-        self.roots.append(root.root(self,(3,RES_X//100),DOWN))
-
-        self.game_over = False
-        
-
+    
     def run(self):
         self._if.run()
         
@@ -47,6 +49,13 @@ class game:
                 remove.append(r)
         for rem in remove:
             self.roots.remove(rem)
+        remove = []
+        for d in self.decals:
+            d.scrollUp()
+            if d.isDead():
+                remove.append(d)
+        for rem in remove:
+            self.decals.remove(rem)
         self.grid_update()
 
     def grid_update(self):
@@ -234,7 +243,21 @@ class game:
             root.setStoneCrusher()
         if type in STONES:
             root.eatStone()
-    
+
+class decal:
+    def __init__(self,type,y,x,sizey,sizex):
+        self.type = type
+        self.y = y
+        self.x = x
+        self.sizey = sizey
+        self.sizex = sizex
+        
+    def scrollUp(self):
+        self.y -= 50
+        
+    def isDead(self):
+        return self.y + self.sizey <= 0
+        
 myGame = game()
 myGame.run()
 myGame.close()

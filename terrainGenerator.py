@@ -14,7 +14,7 @@ class terrainGenerator:
         self.p_variations = [0.01, 0.01, 0.005]
 
     def getLine(self):
-        line = np.zeros((1,RES_X//50),dtype=(int,3))
+        line = np.zeros((1,RES_X//50),dtype=(int,2))
         for i in range(RES_X//50):
             r = random()
             if r < self.p_stone:

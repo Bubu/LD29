@@ -82,8 +82,8 @@ class interface:
                         LEFTRIGHTUP:pg.image.load(PATH+'leftrightup.png').convert_alpha(),
                         RIGHTUPDOWN:pg.image.load(PATH+'rightupdown.png').convert_alpha(),
                         RIGHTUPLEFT:pg.image.load(PATH+'rightupleft.png').convert_alpha(),
-                        RIGHTLEFTDOWN:pg.image.load(PATH+'rightleftdown.png').convert_alpha()
-                        }
+                        RIGHTLEFTDOWN:pg.image.load(PATH+'rightleftdown.png').convert_alpha(),
+                        PLANT:pg.image.load(PATH+'plant.png').convert_alpha()}
         self.sprites[AIR].fill((50,50,200))
         self.sprites[GROUND].fill((139,69,19))
         self.sprites[WATER].fill((0,0,255))
@@ -154,7 +154,9 @@ class interface:
             if self.game.grid[coord][0] != GROUND:
                 self.screen.blit(self.sprites[self.game.grid[coord][0]],self.getScreenPos(coord))
             #pg.draw.circle(self.screen,(0,0,0),(self.getScreenPos(coord)[0]+25,self.getScreenPos(coord)[1]+25),10,1)
-
+        for d in self.game.decals:
+            self.screen.blit(self.sprites[d.type],(d.x,d.y))
+                                 
     def getScreenPos(self,coord):
         y = coord[0] * 50 + OFFSET_Y
         x = coord[1] * 50 + OFFSET_X
