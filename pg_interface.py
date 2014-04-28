@@ -16,7 +16,7 @@ class interface:
         self.updateRects = []
         self.initSprites()
         self.initSounds()
-
+        self.mute = False
         self.manual()
         self.refresh_depthscore()
 
@@ -127,13 +127,13 @@ class interface:
                         self.game.move(LEFT)
                     elif evt.type == KEYUP and evt.key == K_SPACE:
                         self.game.triggerSplit()
-                    elif evt.type == KEYUP and evt.key == K_d:
-                        import pdb
-                        import numpy as np
-                        np.set_printoptions(linewidth=200)
-                        pdb.set_trace()
-
-                if evt.type == KEYUP and evt.key == K_r:
+                if evt.type == KEYUP and evt.key == K_m:
+                    if self.mute == False:
+                        self.mute = True
+                        self.stop_sounds()
+                    elif self.mute == True:
+                        self.mute = False
+                elif evt.type == KEYUP and evt.key == K_r:
                     self.game.reset()
                 self.game.check_energy()
                 pg.display.update(self.updateRects)
@@ -192,7 +192,8 @@ class interface:
         self.updateRects.append(self.screen.blit(game_over,(RES_X//2-game_over.get_width()//2, RES_Y//2-game_over.get_height()//2)))
 
     def play_sound(self,sound):
-        self.sounds[sound].play()
+        if not self.mute:
+            self.sounds[sound].play()
 
     
     def stop_sounds(self):
