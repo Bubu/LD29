@@ -22,20 +22,22 @@ class interface:
 
     def manual(self):
         maFont = pg.font.Font(PATH + FONT2, 16)
-        mainpanel = pg.Surface((600,50))
+        mainpanel = pg.Surface((800,50))
         left = maFont.render('Arrow Left - Move Left',True, (255,255,255), (0,0,0))
         down = maFont.render('Arrow Down - Move Down',True, (255,255,255), (0,0,0))
         right = maFont.render('Arrow Left - Move Right',True, (255,255,255), (0,0,0))
         split = maFont.render('Space Bar - Split the Roots',True, (255,255,255), (0,0,0))
         restart = maFont.render('(r)estart Game',True, (255,255,255), (0,0,0))
         q_uit = maFont.render('(q)uit Game',True, (255,255,255), (0,0,0))
-        mainpanel.blit(left, (2, 5))
+        mute = maFont.render('(m)ute Sounds',True, (255,255,255), (0,0,0)) 
+        mainpanel.blit(left, (0, 5))
         mainpanel.blit(down, (200, 5))
         mainpanel.blit(right, (400, 5))
-        mainpanel.blit(split, (2, 25))
-        mainpanel.blit(restart, (200, 25))
-        mainpanel.blit(q_uit, (400, 25))
-        self.updateRects.append(self.screen.blit(mainpanel, (0, RES_Y)))
+        mainpanel.blit(split, (600, 5))
+        mainpanel.blit(restart, (0, 25))
+        mainpanel.blit(q_uit, (200, 25))
+        mainpanel.blit(mute, (400, 25))
+        self.updateRects.append(self.screen.blit(mainpanel, (2, RES_Y)))
 
 
     def score(self):
