@@ -228,10 +228,13 @@ class game:
 
     def reset(self):
         self.setup()
+        self._if.stop_sounds()
         self._if.redrawGrid()
 
     def check_energy(self):
         if self.energy <= 0:
+            if self.game_over == False:
+                self._if.play_sound(GAME_OVER)
             self.game_over = True
             if self.level > self.depthscore:
                 self.depthscore = self.level

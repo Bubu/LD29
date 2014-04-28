@@ -9,11 +9,13 @@ from config import *
 class interface:
     def __init__(self,game):
         self.game = game
+        pg.mixer.pre_init(44100,-16,2, 1024)
         pg.init()
         self.screen = pg.display.set_mode((RES_X, RES_Y+50))
         pg.display.set_caption(GAME_NAME)
         self.updateRects = []
         self.initSprites()
+        self.initSounds()
 
         self.manual()
         self.refresh_depthscore()
@@ -55,6 +57,9 @@ class interface:
         mainlabel.blit(no_highscore, (0, 10))
         mainlabel.blit(depthscore, (0, 30))
         self.updateRects.append(self.screen.blit(mainlabel, (RES_X-450, RES_Y)))
+
+    def initSounds(self):
+        self.sounds = {GAME_OVER:pg.mixer.Sound(PATH+'game_over2.ogg')}
         
     def initSprites(self):
         self.sprites = {AIR:pg.Surface((50,50)),
@@ -187,3 +192,11 @@ class interface:
         game_over.blit(text, textRect)
         game_over.blit(re_text, re_textRect)
         self.updateRects.append(self.screen.blit(game_over,(RES_X//2-game_over.get_width()//2, RES_Y//2-game_over.get_height()//2)))
+
+    def play_sound(self,sound):
+        self.sounds[sound].play()
+
+    
+    def stop_sounds(self):
+        for s in self.sounds.values():
+            s.stop()
