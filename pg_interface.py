@@ -63,8 +63,7 @@ class interface:
                         STONE2:pg.image.load(PATH+'stone5.png').convert_alpha(),
                         STONE3:pg.image.load(PATH+'stone6.png').convert_alpha(),
                         WATER:pg.image.load(PATH+'water.png').convert_alpha(),
-                        URANIUM:pg.Surface((50,50)),
-                        MINERAL:pg.image.load(PATH+'mineral1.png').convert_alpha(),
+                        URANIUM:pg.image.load(PATH+'uranium.png').convert_alpha(),                        MINERAL:pg.image.load(PATH+'mineral1.png').convert_alpha(),
                         SUP:pg.image.load(PATH+'up.png').convert_alpha(),
                         SDOWN:pg.image.load(PATH+'down.png').convert_alpha(),
                         SLEFT:pg.image.load(PATH+'left.png').convert_alpha(),
@@ -96,9 +95,6 @@ class interface:
                         PLANT:pg.image.load(PATH+'plant.png').convert_alpha()}
         self.sprites[AIR].fill((50,50,200))
         self.sprites[GROUND].fill((139,69,19))
-        #self.sprites[WATER].fill((0,0,255))
-        self.sprites[URANIUM].fill((255,0,0))
-        #self.sprites[MINERAL].fill((255,255,255))
         self.grounds = {}
         self.grounds[0] = (self.sprites[GROUND])
         self.grounds[1] = (self.sprites[GROUND])
