@@ -66,6 +66,7 @@ class game:
 
     def move(self,check_dir):
         self.lowest_ypos = 0
+        stuck_counter = 0
         for root in self.roots:
             oldpos = root.pos
             olddir = root.dir
@@ -79,6 +80,10 @@ class game:
                 self.updateSingleTile(root,dir,olddir,oldpos)
                 self.energy -= 1
                 self._if.score()
+            if oldpos == root.pos:
+               stuck_counter += 1
+        if stuck_counter == len(self.roots):
+            self.init_game_over()
         self.checkScroll()
         
 
@@ -233,13 +238,16 @@ class game:
 
     def check_energy(self):
         if self.energy <= 0:
-            if self.game_over == False:
-                self._if.play_sound(GAME_OVER)
-            self.game_over = True
-            if self.level > self.depthscore:
-                self.depthscore = self.level
-            self._if.refresh_depthscore()
-            self._if.game_over()
+            self.init_game_over()
+
+    def init_game_over(self):
+        if self.game_over == False:
+            self._if.play_sound(GAME_OVER)
+        self.game_over = True
+        if self.level > self.depthscore:
+            self.depthscore = self.level
+        self._if.refresh_depthscore()
+        self._if.game_over()
             
     def doAction(self,type,root):
         if type == WATER:
