@@ -98,6 +98,10 @@ class interface:
                         RIGHTUPDOWN:pg.image.load(PATH+'rightupdown.png').convert_alpha(),
                         RIGHTUPLEFT:pg.image.load(PATH+'rightupleft.png').convert_alpha(),
                         RIGHTLEFTDOWN:pg.image.load(PATH+'rightleftdown.png').convert_alpha(),
+                        CLOUD1:pg.image.load(PATH+'cloud1.png').convert_alpha(),
+                        CLOUD2:pg.image.load(PATH+'cloud2.png').convert_alpha(),
+                        CLOUD3:pg.image.load(PATH+'cloud3.png').convert_alpha(),
+                        CLOUD4:pg.image.load(PATH+'cloud4.png').convert_alpha(),
                         PLANT:pg.image.load(PATH+'plant.png').convert_alpha()}
         self.sprites[AIR].fill((50,50,200))
         self.sprites[GROUND].fill((139,69,19))
