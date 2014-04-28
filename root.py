@@ -271,7 +271,7 @@ class root:
     def setStoneCrusher(self):
         if STONE1 not in self.access:
             self.access += [STONE1,STONE2,STONE3]
-        self.stoner_rock += 3
+        self.stoner_rock += VAL_MINERAL
 
     def eatStone(self):
         self.stoner_rock -= 1

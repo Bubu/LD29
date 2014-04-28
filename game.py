@@ -255,9 +255,9 @@ class game:
             
     def doAction(self,type,root):
         if type == WATER:
-            self.energy += 10
+            self.energy += VAL_WATER
         if type == URANIUM:
-            self.energy -= 10
+            self.energy -= VAL_URANIUM
         if type == MINERAL:
             root.setStoneCrusher()
         if type in STONES:
