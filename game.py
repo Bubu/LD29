@@ -21,6 +21,10 @@ class game:
         
         self.decals = []
         self.decals.append(decal(PLANT,0,(RES_X//100)*50-18,150,100))
+        self.decals.append(decal(CLOUD1,5,15,90,199))
+        self.decals.append(decal(CLOUD2,7,870,87,201))
+        self.decals.append(decal(CLOUD3,4,400,58,104))
+        self.decals.append(decal(CLOUD4,10,1200,50,82))
         self.roots = []
         self.roots.append(root.root(self,(3,RES_X//100),DOWN))
         
