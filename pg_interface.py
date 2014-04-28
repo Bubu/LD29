@@ -89,6 +89,7 @@ class interface:
     def initSprites(self):
         self.sprites = {AIR:pg.Surface((50,50)),
                         GROUND:pg.Surface((50,50)),
+                        RED:pg.Surface((50,50)),
                         STONE1:pg.image.load(PATH+'stone4.png').convert_alpha(),
                         STONE2:pg.image.load(PATH+'stone5.png').convert_alpha(),
                         STONE3:pg.image.load(PATH+'stone6.png').convert_alpha(),
@@ -128,6 +129,7 @@ class interface:
                         CLOUD3:pg.image.load(PATH+'cloud3.png').convert_alpha(),
                         CLOUD4:pg.image.load(PATH+'cloud4.png').convert_alpha(),
                         PLANT:pg.image.load(PATH+'plant.png').convert_alpha(),
+                        GROUNDTEX:pg.image.load(PATH+'groundtex.png').convert_alpha(),
                         WATER_ICON:pg.image.load(PATH+'water_icon.png').convert_alpha(),
                         URANIUM_ICON:pg.image.load(PATH+'uranium_icon.png').convert_alpha(),
                         MINERAL1_ICON:pg.image.load(PATH+'mineral1_icon.png').convert_alpha(),
@@ -135,6 +137,15 @@ class interface:
                         MINERAL3_ICON:pg.image.load(PATH+'mineral3_icon.png').convert_alpha()}
         self.sprites[AIR].fill((50,50,200))
         self.sprites[GROUND].fill((139,69,19))
+        self.sprites[RED].fill((255,30,25))
+        self.sprites[SUPRED] = self.sprites[SUP].copy()
+        self.sprites[SDOWNRED] = self.sprites[SDOWN].copy()
+        self.sprites[SLEFTRED] = self.sprites[SLEFT].copy()
+        self.sprites[SRIGHTRED] = self.sprites[SRIGHT].copy()
+        self.sprites[SUPRED].blit(self.sprites[RED],(0,0),special_flags=BLEND_RGB_MULT)
+        self.sprites[SDOWNRED].blit(self.sprites[RED],(0,0),special_flags=BLEND_RGB_MULT)
+        self.sprites[SLEFTRED].blit(self.sprites[RED],(0,0),special_flags=BLEND_RGB_MULT)
+        self.sprites[SRIGHTRED].blit(self.sprites[RED],(0,0),special_flags=BLEND_RGB_MULT)     
         self.grounds = {}
         self.grounds[0] = (self.sprites[GROUND])
         self.grounds[1] = (self.sprites[GROUND])
@@ -178,10 +189,13 @@ class interface:
                 
 
     def update(self,coord_list):
+        crusherCoords = self.game.getCrusherCoords()
         for coord in coord_list:
             self.screen.blit(self.grounds[self.game.level-RES_Y//50+coord[0]],self.getScreenPos(coord))
-            if self.game.grid[coord][0] != GROUND:
+            if self.game.grid[coord][0] != GROUND and coord not in crusherCoords:
                 self.screen.blit(self.sprites[self.game.grid[coord][0]],self.getScreenPos(coord))
+            if coord in crusherCoords:
+                self.screen.blit(self.sprites[-self.game.grid[coord][0]],self.getScreenPos(coord))
             self.updateRects.append(self.getRect(coord))
             
     def getRect(self,coord):
@@ -195,11 +209,13 @@ class interface:
         self.drawGrid()
 
     def drawGrid(self):
+        crusherCoords = self.game.getCrusherCoords()
         for coord in product(range(RES_Y//50),range(RES_X//50)):
             self.screen.blit(self.grounds[self.game.level-RES_Y//50+coord[0]],self.getScreenPos(coord))
-            if self.game.grid[coord][0] != GROUND:
+            if self.game.grid[coord][0] != GROUND and coord not in crusherCoords:
                 self.screen.blit(self.sprites[self.game.grid[coord][0]],self.getScreenPos(coord))
-            #pg.draw.circle(self.screen,(0,0,0),(self.getScreenPos(coord)[0]+25,self.getScreenPos(coord)[1]+25),10,1)
+            if coord in crusherCoords:
+                self.screen.blit(self.sprites[-self.game.grid[coord][0]],self.getScreenPos(coord))
         for d in self.game.decals:
             self.screen.blit(self.sprites[d.type],(d.x,d.y))
                                  
@@ -211,6 +227,7 @@ class interface:
     def genground(self,level):
         self.grounds[level] = self.sprites[GROUND].copy()
         self.grounds[level].fill((max(40,180-level),max(10,90-level//2),max(4,20-level//90)))
+        self.grounds[level].blit(self.sprites[GROUNDTEX],(0,0),special_flags=0)
 
     def game_over(self):
         game_over = pg.Surface((300,100))

@@ -263,6 +263,9 @@ class game:
         if type in STONES:
             root.eatStone()
 
+    def getCrusherCoords(self):
+        return [r.pos for r in self.roots if r.stoner_rock > 0]
+
 class decal:
     def __init__(self,type,y,x,sizey,sizex):
         self.type = type

@@ -33,6 +33,12 @@ DOWN = 3
 
 # ==Tile Constants==
 GROUND = 0
+GROUNDTEX = -1
+SUPRED = -10
+SDOWNRED = -11
+SLEFTRED = -12
+SRIGHTRED = -13
+RED = -6
 AIR = 1
 #Stubs
 SUP = 10
