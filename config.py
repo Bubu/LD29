@@ -7,6 +7,8 @@ RES_Y = 750
 OFFSET_X = 0
 OFFSET_Y = 0
 
+ENERGY_MAX = 20
+
 #Game Constants. Don't change!
 appdir = os.path.dirname(sys.argv[0])
 PATH = os.path.join(appdir, "res") + os.sep
@@ -53,9 +55,12 @@ RIGHTUPLEFT = 36
 RIGHTLEFTDOWN = 37
 
 
-STONE = 100
+STONE1 = 100
+STONE2 = 104
+STONE3 = 105
 URANIUM = 101
 WATER = 102
 MINERAL = 103
 
-ACCESS = [GROUND,URANIUM,WATER,MINERAL]
+STONES = [STONE1,STONE2,STONE3]
+ACCESS = [GROUND,WATER,URANIUM,MINERAL]

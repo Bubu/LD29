@@ -1,17 +1,36 @@
 from config import *
 
 import pg_interface as _if
+import terrainGenerator
 import root
 import numpy as np
 
 class game:
     def __init__(self):
+        self.energy = ENERGY_MAX
         self._if = _if.interface(self)
+        self.setup()
+
+    def setup(self):
+        self.energy = ENERGY_MAX
+        self.level = 3
+        
+        self.generator = terrainGenerator.terrainGenerator()
+        
         self.grid = np.zeros((RES_Y//50,RES_X//50),dtype=(int,3))
         self.grid[:3,:,0] = AIR
+        for i in range(3,RES_Y//50):
+            self.grid[i,:,:] = self.generator.getLine()
+            self._if.genground(self.level)
+            self.level += 1
+        self._if.score()
+        #set initial root
         self.grid[3,RES_X//100][0] = SUP
         self.roots = []
         self.roots.append(root.root(self,(3,RES_X//100),DOWN))
+
+        self.game_over = False
+        
 
     def run(self):
         self._if.run()
@@ -21,15 +40,19 @@ class game:
 
     def scroll_up(self):
         self.grid = np.roll(self.grid,-1,0)
+        remove = []
         for r in self.roots:
             r.pos = (r.pos[0]-1,r.pos[1])
-            if r.pos[0] < 1:
-                self.roots.remove(r)
+            if r.pos[0] < 0:
+                remove.append(r)
+        for rem in remove:
+            self.roots.remove(rem)
         self.grid_update()
 
     def grid_update(self):
-        self.grid[-1,:,0] = GROUND #TODO: Generate new, random tiles
-        #print(self.grid[0:20,:,0])
+        self.grid[-1,:,:] = self.generator.getLine()
+        self._if.genground(self.level)
+        self.level += 1
 
     def move(self,check_dir):
         self.lowest_ypos = 0
@@ -44,7 +67,10 @@ class game:
                 dir = root.check_left()
             if dir is not None:
                 self.updateSingleTile(root,dir,olddir,oldpos)
+                self.energy -= 1
+                self._if.score()
         self.checkScroll()
+        
 
     def triggerSplit(self):
         self.newroots = []
@@ -58,6 +84,8 @@ class game:
             if dir1 is not None:
                 if dir2 is not None:
                     newpos1,newpos2 = self.getnewpos(oldpos,dir1,dir2)
+                    self.doAction(self.grid[newpos1][0],r)
+                    self.doAction(self.grid[newpos2][0],r)
                     self.lowest_ypos = max(self.lowest_ypos,newpos1[0],newpos2[0])
                     if olddir == UP:
                         if dir1 == RIGHT:
@@ -123,13 +151,20 @@ class game:
                     self.grid[newpos1][0] = newtile1
                     self.grid[newpos2][0] = newtile2
                     self._if.update([oldpos,newpos1,newpos2])
+                    self.energy -= 2
+                    self._if.score()             
                 else:
                     self.updateSingleTile(r,dir1,olddir,oldpos)
+                    self.energy -= 1
+                    self._if.score()
         self.roots += self.newroots
         self.checkScroll()
 
     def updateSingleTile(self,root,dir,olddir,oldpos):
         newpos = root.pos
+        if newpos[0] < 0 or newpos[1] < 0:
+            raise ValueError("<0: Old: ", olddir," New: ", dir)
+        self.doAction(self.grid[newpos][0],root)
         if newpos[0] > self.lowest_ypos:
             self.lowest_ypos = newpos[0]
         if dir == DOWN:
@@ -169,15 +204,36 @@ class game:
     def checkScroll(self):
         if self.lowest_ypos >= (RES_Y//50-5):
             self.scroll_up()
-            #self.grid_update()
             self._if.redrawGrid()
             
     def getnewpos(self,oldpos,dir1,dir2):
         d = {DOWN:(1,0),UP:(-1,0),LEFT:(0,-1),RIGHT:(0,1)}
         newpos1 = oldpos[0] + d[dir1][0],oldpos[1] + d[dir1][1]
         newpos2 = oldpos[0] + d[dir2][0],oldpos[1] + d[dir2][1]
-        #print(newpos1,newpos2)
+        if newpos1[0] < 0 or newpos1[1] < 0:
+            raise ValueError("<0: New: ", dir1,dir2, newpos1)
+        if newpos2[0] < 0 or newpos2[1] < 0:
+            raise ValueError("<0: New: ", dir1,dir2, newpos2)
         return newpos1,newpos2
+
+    def reset(self):
+        self.setup()
+        self._if.redrawGrid()
+
+    def check_energy(self):
+        if self.energy <= 0:
+            self.game_over = True
+            self._if.game_over()
+            
+    def doAction(self,type,root):
+        if type == WATER:
+            self.energy += 10
+        if type == URANIUM:
+            self.energy -= 10
+        if type == MINERAL:
+            root.setStoneCrusher()
+        if type in STONES:
+            root.eatStone()
     
 myGame = game()
 myGame.run()
