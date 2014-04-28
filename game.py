@@ -8,6 +8,7 @@ import numpy as np
 class game:
     def __init__(self):
         self.energy = ENERGY_MAX
+        self.depthscore = 15
         self._if = _if.interface(self)
         self.setup()
 
@@ -30,6 +31,8 @@ class game:
         self.roots.append(root.root(self,(3,RES_X//100),DOWN))
 
         self.game_over = False
+
+        
         
 
     def run(self):
@@ -223,6 +226,9 @@ class game:
     def check_energy(self):
         if self.energy <= 0:
             self.game_over = True
+            if self.level > self.depthscore:
+                self.depthscore = self.level
+            self._if.refresh_depthscore()
             self._if.game_over()
             
     def doAction(self,type,root):

@@ -16,6 +16,7 @@ class interface:
         self.initSprites()
 
         self.manual()
+        self.refresh_depthscore()
 
         self.basicFont = pg.font.Font(PATH + 'EBGaramond08-Regular.ttf', 17)
 
@@ -44,7 +45,16 @@ class interface:
         level = scFont.render('Depthlevel: '+str(self.game.level),True, (255,255,255), (0,0,0))
         mainlabel.blit(energy, (0, 10))
         mainlabel.blit(level, (0, 30))
-        self.updateRects.append(self.screen.blit(mainlabel,(RES_X-150, RES_Y))) 
+        self.updateRects.append(self.screen.blit(mainlabel,(RES_X-150, RES_Y)))
+
+    def refresh_depthscore(self):
+        dsFont = pg.font.Font(PATH + 'EBGaramond08-Regular.ttf', 17)
+        mainlabel = pg.Surface((300,50))
+        no_highscore = dsFont.render('The Highscore is a lie.',True, (255,255,255), (0,0,0))
+        depthscore = dsFont.render('Actually your Depthscore is '+str(self.game.depthscore)+'.',True, (255,255,255), (0,0,0))
+        mainlabel.blit(no_highscore, (0, 10))
+        mainlabel.blit(depthscore, (0, 30))
+        self.updateRects.append(self.screen.blit(mainlabel, (RES_X-450, RES_Y)))
         
     def initSprites(self):
         self.sprites = {AIR:pg.Surface((50,50)),
@@ -52,9 +62,9 @@ class interface:
                         STONE1:pg.image.load(PATH+'stone1.png').convert_alpha(),
                         STONE2:pg.image.load(PATH+'stone2.png').convert_alpha(),
                         STONE3:pg.image.load(PATH+'stone3.png').convert_alpha(),
-                        WATER:pg.Surface((50,50)),
+                        WATER:pg.image.load(PATH+'water.png').convert_alpha(),
                         URANIUM:pg.Surface((50,50)),
-                        MINERAL:pg.Surface((50,50)),
+                        MINERAL:pg.image.load(PATH+'mineral1.png').convert_alpha(),
                         SUP:pg.image.load(PATH+'up.png').convert_alpha(),
                         SDOWN:pg.image.load(PATH+'down.png').convert_alpha(),
                         SLEFT:pg.image.load(PATH+'left.png').convert_alpha(),
@@ -86,9 +96,9 @@ class interface:
                         }
         self.sprites[AIR].fill((50,50,200))
         self.sprites[GROUND].fill((139,69,19))
-        self.sprites[WATER].fill((0,0,255))
+        #self.sprites[WATER].fill((0,0,255))
         self.sprites[URANIUM].fill((255,0,0))
-        self.sprites[MINERAL].fill((255,255,255))
+        #self.sprites[MINERAL].fill((255,255,255))
         self.grounds = {}
         self.grounds[0] = (self.sprites[GROUND])
         self.grounds[1] = (self.sprites[GROUND])
