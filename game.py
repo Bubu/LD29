@@ -8,7 +8,7 @@ import numpy as np
 class game:
     def __init__(self):
         self.energy = ENERGY_MAX
-        self.depthscore = 15
+        self.depthscore = RES_Y//50
         self._if = _if.interface(self)
         self.setup()
 
@@ -69,6 +69,7 @@ class game:
         self.level += 1
 
     def move(self,check_dir):
+        self.energy -= 1
         self.lowest_ypos = 0
         stuck_counter = 0
         for root in self.roots:
@@ -82,18 +83,18 @@ class game:
                 dir = root.check_left()
             if dir is not None:
                 self.updateSingleTile(root,dir,olddir,oldpos)
-                self.energy -= 1
                 self._if.score()
             if oldpos == root.pos:
                stuck_counter += 1
         if stuck_counter == len(self.roots):
-            self.init_game_over()
+            self.init_game_over()   
         self.checkScroll()
         
 
     def triggerSplit(self):
         self.newroots = []
         self.lowest_ypos = 0
+        self.energy -= 10
         for r in self.roots:
             dir1 = None
             dir2 = None
@@ -170,11 +171,9 @@ class game:
                     self.grid[newpos1][0] = newtile1
                     self.grid[newpos2][0] = newtile2
                     self._if.update([oldpos,newpos1,newpos2])
-                    self.energy -= 2
                     self._if.score()             
                 else:
                     self.updateSingleTile(r,dir1,olddir,oldpos)
-                    self.energy -= 1
                     self._if.score()
         self.roots += self.newroots
         self.checkScroll()
@@ -260,6 +259,11 @@ class game:
             self.energy -= VAL_URANIUM
         if type == MINERAL:
             root.setStoneCrusher()
+        if type == MINERAL2:
+            self.energy += VAL_MINERAL2
+        if type == MINERAL3:
+            for r in self.roots:
+                r.setStoneCrusher_4_all_roots()
         if type in STONES:
             root.eatStone()
 
