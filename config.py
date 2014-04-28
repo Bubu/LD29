@@ -1,8 +1,8 @@
 import os,sys
 
 GAME_NAME = 'under the surface'
-RES_X = 1650
-RES_Y = 800
+RES_X = 1366
+RES_Y = 768
 
 OFFSET_X = 0
 OFFSET_Y = 0
