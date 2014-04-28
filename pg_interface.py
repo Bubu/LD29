@@ -84,7 +84,16 @@ class interface:
         self.updateRects.append(self.screen.blit(mainlabel, (RES_X-350, RES_Y)))
 
     def initSounds(self):
-        self.sounds = {GAME_OVER:pg.mixer.Sound(PATH+'game_over2.ogg')}
+        self.sounds = {GAME_OVER:pg.mixer.Sound(PATH+'game_over2.ogg'),
+                       S_MINERAL1:pg.mixer.Sound(PATH+'mineral1.wav'),
+                       S_MINERAL2:pg.mixer.Sound(PATH+'mineral2.wav'),
+                       S_MINERAL3:pg.mixer.Sound(PATH+'mineral3.wav'),
+                       S_WATER:pg.mixer.Sound(PATH+'water.wav'),
+                       S_STONE_CRUSH:pg.mixer.Sound(PATH+'stone_crush.wav'),
+                       S_URANIUM:pg.mixer.Sound(PATH+'uranium.wav')}
+        pg.mixer.music.load(PATH + MUSICFILE)
+        pg.mixer.music.set_volume(0.5)
+        pg.mixer.music.set_endevent(MUSIC_END)
         
     def initSprites(self):
         self.sprites = {AIR:pg.Surface((50,50)),
@@ -167,6 +176,8 @@ class interface:
                 return
             if evt.type == KEYUP and evt.key == K_q:
                 return
+            if evt.type == MUSIC_END:
+                self.handlemusic()
             else:
                 if not self.game.game_over:
                     if evt.type == KEYUP and evt.key == K_DOWN:
@@ -250,8 +261,12 @@ class interface:
     def play_sound(self,sound):
         if not self.mute:
             self.sounds[sound].play()
-
+            
+    def handlemusic(self):
+        pg.mixer.music.play()
     
     def stop_sounds(self):
         for s in self.sounds.values():
             s.stop()
+    def stopMusic(self):
+        pg.mixer.music.stop()

@@ -29,6 +29,7 @@ class game:
         self.roots.append(root.root(self,(3,RES_X//100),DOWN))
         
         self._if.score()
+        self._if.handlemusic()
         
     def initialTerrain(self):
         self.grid = np.zeros((RES_Y//50,RES_X//50),dtype=(int,2))
@@ -246,6 +247,7 @@ class game:
     def init_game_over(self):
         if self.game_over == False:
             self._if.play_sound(GAME_OVER)
+            self._if.stopMusic()
         self.game_over = True
         if self.level > self.depthscore:
             self.depthscore = self.level
@@ -255,17 +257,23 @@ class game:
     def doAction(self,type,root):
         if type == WATER:
             self.energy += VAL_WATER
+            self._if.play_sound(S_WATER)
         if type == URANIUM:
             self.energy -= VAL_URANIUM
+            self._if.play_sound(S_URANIUM)
         if type == MINERAL:
             root.setStoneCrusher()
+            self._if.play_sound(S_MINERAL1)
         if type == MINERAL2:
             self.energy += VAL_MINERAL2
+            self._if.play_sound(S_MINERAL2)
         if type == MINERAL3:
             for r in self.roots:
                 r.setStoneCrusher_4_all_roots()
+            self._if.play_sound(S_MINERAL3)
         if type in STONES:
             root.eatStone()
+            self._if.play_sound(S_STONE_CRUSH)
 
     def getCrusherCoords(self):
         return [r.pos for r in self.roots if r.stoner_rock > 0]

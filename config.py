@@ -1,4 +1,6 @@
 import os,sys
+import pygame as pg
+from pygame.locals import *
 
 GAME_NAME = 'under the surface'
 RES_X = 1600
@@ -14,7 +16,7 @@ P_STONE = 0.001
 P_WATER = 0.01
 VAL_WATER = 10
 P_URANIUM = 0.01
-VAL_URANIUM = 10
+VAL_URANIUM = 50
 P_MINERAL = 0.005
 VAL_MINERAL = 3
 P_MINERAL2 = 0.002
@@ -28,6 +30,9 @@ appdir = os.path.dirname(sys.argv[0])
 PATH = os.path.join(appdir, "res") + os.sep
 FONT = 'DISTRO.ttf'
 FONT2 = 'DISTROB.ttf'
+MUSICFILE = 'roots.ogg'
+MUSIC_END = pg.USEREVENT + 1
+SOUND = ['','','','','','']
 
 UP = 0
 LEFT = 1
@@ -99,6 +104,12 @@ CLOUD4 = 1004
 
 #Sounds
 GAME_OVER = 1
+S_MINERAL1 = 2
+S_MINERAL2 = 3
+S_MINERAL3 = 4
+S_WATER = 5
+S_URANIUM = 6
+S_STONE_CRUSH = 7
 
 STONES = [STONE1,STONE2,STONE3]
 ACCESS = [GROUND,WATER,URANIUM,MINERAL,MINERAL2,MINERAL3]
