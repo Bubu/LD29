@@ -6,7 +6,7 @@ class terrainGenerator:
     def __init__(self):
         self.counter = 0
         self.path = [RES_X//100]
-        self.p_stone = 0.01
+        self.p_stone = P_STONE
         #self.p_connected = 2
         self.p_variations = [P_WATER,P_URANIUM,P_MINERAL]
 
