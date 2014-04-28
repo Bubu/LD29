@@ -18,26 +18,38 @@ class interface:
         self.initSounds()
         self.mute = False
         self.manual()
+        self.icon_description()
         self.refresh_depthscore()
 
     def manual(self):
         maFont = pg.font.Font(PATH + FONT2, 16)
-        mainpanel = pg.Surface((800,50))
-        left = maFont.render('Arrow Left - Move Left',True, (255,255,255), (0,0,0))
-        down = maFont.render('Arrow Down - Move Down',True, (255,255,255), (0,0,0))
-        right = maFont.render('Arrow Left - Move Right',True, (255,255,255), (0,0,0))
+        mainpanel = pg.Surface((600,50))
+        arrows = maFont.render('Arrows - Movement',True, (255,255,255), (0,0,0))
         split = maFont.render('Space Bar - Split the Roots',True, (255,255,255), (0,0,0))
         restart = maFont.render('(r)estart Game',True, (255,255,255), (0,0,0))
         q_uit = maFont.render('(q)uit Game',True, (255,255,255), (0,0,0))
         mute = maFont.render('(m)ute Sounds',True, (255,255,255), (0,0,0)) 
-        mainpanel.blit(left, (0, 5))
-        mainpanel.blit(down, (200, 5))
-        mainpanel.blit(right, (400, 5))
-        mainpanel.blit(split, (600, 5))
+        mainpanel.blit(arrows, (0, 5))
+        mainpanel.blit(split, (200, 5))
         mainpanel.blit(restart, (0, 25))
         mainpanel.blit(q_uit, (200, 25))
         mainpanel.blit(mute, (400, 25))
         self.updateRects.append(self.screen.blit(mainpanel, (2, RES_Y)))
+
+    def icon_description(self):
+        maFont = pg.font.Font(PATH + FONT2, 16)
+        mainpanel = pg.Surface((400,50))
+        water = maFont.render('+'+str(VAL_WATER)+(' Energy'),True, (255,255,255), (0,0,0))
+        uranium = maFont.render('-'+str(VAL_URANIUM)+' Energy',True, (255,255,255), (0,0,0))
+        mineral = maFont.render('Root gets +'+str(VAL_MINERAL)+' Stone Crusher.',True, (255,255,255), (0,0,0))
+        mainpanel.blit(self.sprites[WATER_ICON], (0, 5))
+        mainpanel.blit(water, (55, 5))
+        mainpanel.blit(self.sprites[URANIUM_ICON], (100, 5))
+        mainpanel.blit(uranium, (155, 5))
+        mainpanel.blit(self.sprites[MINERAL_ICON], (100, 5))
+        mainpanel.blit(mineral, (55, 25))
+        
+        self.updateRects.append(self.screen.blit(mainpanel, (602, RES_Y)))
 
 
     def score(self):
@@ -68,7 +80,8 @@ class interface:
                         STONE2:pg.image.load(PATH+'stone5.png').convert_alpha(),
                         STONE3:pg.image.load(PATH+'stone6.png').convert_alpha(),
                         WATER:pg.image.load(PATH+'water.png').convert_alpha(),
-                        URANIUM:pg.image.load(PATH+'uranium.png').convert_alpha(),                        MINERAL:pg.image.load(PATH+'mineral1.png').convert_alpha(),
+                        URANIUM:pg.image.load(PATH+'uranium.png').convert_alpha(),
+                        MINERAL:pg.image.load(PATH+'mineral1.png').convert_alpha(),
                         SUP:pg.image.load(PATH+'up.png').convert_alpha(),
                         SDOWN:pg.image.load(PATH+'down.png').convert_alpha(),
                         SLEFT:pg.image.load(PATH+'left.png').convert_alpha(),
@@ -97,7 +110,10 @@ class interface:
                         RIGHTUPDOWN:pg.image.load(PATH+'rightupdown.png').convert_alpha(),
                         RIGHTUPLEFT:pg.image.load(PATH+'rightupleft.png').convert_alpha(),
                         RIGHTLEFTDOWN:pg.image.load(PATH+'rightleftdown.png').convert_alpha(),
-                        PLANT:pg.image.load(PATH+'plant.png').convert_alpha()}
+                        PLANT:pg.image.load(PATH+'plant.png').convert_alpha(),
+                        WATER_ICON:pg.image.load(PATH+'water_icon.png').convert_alpha(),
+                        URANIUM_ICON:pg.image.load(PATH+'uranium_icon.png').convert_alpha(),
+                        MINERAL_ICON:pg.image.load(PATH+'mineral_icon.png').convert_alpha()}}
         self.sprites[AIR].fill((50,50,200))
         self.sprites[GROUND].fill((139,69,19))
         self.grounds = {}
