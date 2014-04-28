@@ -59,9 +59,9 @@ class interface:
     def initSprites(self):
         self.sprites = {AIR:pg.Surface((50,50)),
                         GROUND:pg.Surface((50,50)),
-                        STONE1:pg.image.load(PATH+'stone1.png').convert_alpha(),
-                        STONE2:pg.image.load(PATH+'stone2.png').convert_alpha(),
-                        STONE3:pg.image.load(PATH+'stone3.png').convert_alpha(),
+                        STONE1:pg.image.load(PATH+'stone4.png').convert_alpha(),
+                        STONE2:pg.image.load(PATH+'stone5.png').convert_alpha(),
+                        STONE3:pg.image.load(PATH+'stone6.png').convert_alpha(),
                         WATER:pg.image.load(PATH+'water.png').convert_alpha(),
                         URANIUM:pg.Surface((50,50)),
                         MINERAL:pg.image.load(PATH+'mineral1.png').convert_alpha(),
