@@ -48,19 +48,19 @@ class interface:
         mainpanel = pg.Surface((600,50))
         water = maFont.render('+'+str(VAL_WATER)+(' energy'),True, (255,255,255), (0,0,0))
         uranium = maFont.render('-'+str(VAL_URANIUM)+' energy',True, (255,255,255), (0,0,0))
-        mineral1 = maFont.render('+'+str(VAL_MINERAL)+' stone crusher',True, (255,255,255), (0,0,0))
-        mineral2 = maFont.render('TEXT',True, (255,255,255), (0,0,0))
-        mineral3 = maFont.render('TEXT',True, (255,255,255), (0,0,0))
+        mineral1 = maFont.render('root gets +'+str(VAL_MINERAL)+' stone crusher',True, (255,255,255), (0,0,0))
+        mineral2 = maFont.render('+'+str(VAL_MINERAL2)+' energy',True, (255,255,255), (0,0,0))
+        mineral3 = maFont.render('all roots get +'+str(VAL_MINERAL3)+' stone crusher',True, (255,255,255), (0,0,0))
         mainpanel.blit(self.sprites[WATER_ICON], (0, 5))
         mainpanel.blit(water, (35, 5))
-        mainpanel.blit(self.sprites[URANIUM_ICON], (0, 25))
-        mainpanel.blit(uranium, (35, 25))
-        mainpanel.blit(self.sprites[MINERAL1_ICON], (165, 5))
-        mainpanel.blit(mineral1, (200, 5))
-        mainpanel.blit(self.sprites[MINERAL2_ICON], (165, 25))
-        mainpanel.blit(mineral2, (200, 25))
-        mainpanel.blit(self.sprites[MINERAL3_ICON], (365, 5))
-        mainpanel.blit(mineral3, (400, 5))
+        mainpanel.blit(self.sprites[MINERAL2_ICON], (0, 25))
+        mainpanel.blit(mineral2, (35, 25))
+        mainpanel.blit(self.sprites[URANIUM_ICON], (165, 5))
+        mainpanel.blit(uranium, (200, 5))
+        mainpanel.blit(self.sprites[MINERAL1_ICON], (335, 5))
+        mainpanel.blit(mineral1, (370, 5))
+        mainpanel.blit(self.sprites[MINERAL3_ICON], (335, 25))
+        mainpanel.blit(mineral3, (370, 25))
         
         
         self.updateRects.append(self.screen.blit(mainpanel, (RES_X//2-mainpanel.get_width()//2, RES_Y)))
@@ -96,6 +96,8 @@ class interface:
                         WATER:pg.image.load(PATH+'water.png').convert_alpha(),
                         URANIUM:pg.image.load(PATH+'uranium.png').convert_alpha(),
                         MINERAL:pg.image.load(PATH+'mineral1.png').convert_alpha(),
+                        MINERAL2:pg.image.load(PATH+'mineral2.png').convert_alpha(),
+                        MINERAL3:pg.image.load(PATH+'mineral3.png').convert_alpha(),
                         SUP:pg.image.load(PATH+'up.png').convert_alpha(),
                         SDOWN:pg.image.load(PATH+'down.png').convert_alpha(),
                         SLEFT:pg.image.load(PATH+'left.png').convert_alpha(),

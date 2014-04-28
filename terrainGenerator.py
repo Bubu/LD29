@@ -7,8 +7,9 @@ class terrainGenerator:
         self.counter = 0
         self.path = [RES_X//100]
         self.p_stone = P_STONE
+        self.mineral_counter = 3
         #self.p_connected = 2
-        self.p_variations = [P_WATER,P_URANIUM,P_MINERAL]
+        self.p_variations = [P_MINERAL,P_WATER,P_URANIUM,P_MINERAL2,P_MINERAL3]
 
     def getLine(self):
         line = np.zeros((1,RES_X//50),dtype=(int,2))
@@ -30,6 +31,10 @@ class terrainGenerator:
         #    line[0,RES_X//100+1,0]= STONE1            
         #    line[0,RES_X//100+2,0]= STONE1
         self.counter += 1
+        if self.counter > 100:
+            self.mineral_counter = 4
+        if self.counter > 200:
+            self.mineral_counter = 5
         return line
 
     def checkPath(self,line):
@@ -55,7 +60,7 @@ class terrainGenerator:
 
     def refresh_ground(self,line):       
         for i in range(RES_X//50):
-            for j in range(len(self.p_variations)):
+            for j in range(self.mineral_counter):
                 if line[0,i,0] == GROUND:
                     r = random()
                     if r < self.p_variations[j]:
