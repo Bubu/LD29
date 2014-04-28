@@ -24,24 +24,23 @@ class interface:
 
     def manual(self):
         maFont = pg.font.Font(PATH + FONT2, 16)
-        mainpanel = pg.Surface((500,50))
-        arrows = maFont.render('Arrows - Movement',True, (255,255,255), (0,0,0))
-        split = maFont.render('Space Bar - Split the Roots',True, (255,255,255), (0,0,0))
-        restart = maFont.render('(r)estart Game',True, (255,255,255), (0,0,0))
-        q_uit = maFont.render('(q)uit Game',True, (255,255,255), (0,0,0))
-        mute = maFont.render('(m)ute Sounds',True, (255,255,255), (0,0,0)) 
+        mainpanel = pg.Surface((400,50))
+        arrows = maFont.render('Arrows - Move',True, (255,255,255), (0,0,0))
+        split = maFont.render('Space - Rootsplit',True, (255,255,255), (0,0,0))
+        restart = maFont.render('(r)estart',True, (255,255,255), (0,0,0))
+        q_uit = maFont.render('(q)uit',True, (255,255,255), (0,0,0))
+        mute = maFont.render('(m)ute',True, (255,255,255), (0,0,0)) 
         mainpanel.blit(arrows, (0, 5))
         mainpanel.blit(split, (0, 25))
-        mainpanel.blit(restart, (200, 5))
-        mainpanel.blit(q_uit, (200, 25))
-        mainpanel.blit(mute, (350, 5))
-        self.updateRects.append(self.screen.blit(mainpanel, (RES_X//6-mainpanel.get_width()//2, RES_Y)))
-        #self.updateRects.append(self.screen.blit(mainpanel, (2, RES_Y)))
+        mainpanel.blit(restart, (150, 5))
+        mainpanel.blit(q_uit, (150, 25))
+        mainpanel.blit(mute, (250, 5))
+        self.updateRects.append(self.screen.blit(mainpanel, (10, RES_Y)))
 
     def separator(self):
         separator = pg.Surface((3, 40))
         separator.fill((255,255,255))
-        self.updateRects.append(self.screen.blit(separator, (RES_X//3, RES_Y+5)))
+        self.updateRects.append(self.screen.blit(separator, (320, RES_Y+5)))
         self.updateRects.append(self.screen.blit(separator, (2*RES_X//3, RES_Y+5)))
 
     def icon_description(self):
