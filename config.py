@@ -20,6 +20,8 @@ P_MINERAL = 0.005
 #Game Constants. Don't change!
 appdir = os.path.dirname(sys.argv[0])
 PATH = os.path.join(appdir, "res") + os.sep
+FONT = 'DISTRO.ttf'
+FONT2 = 'DISTROB.ttf'
 
 UP = 0
 LEFT = 1

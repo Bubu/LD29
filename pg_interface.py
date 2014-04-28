@@ -20,10 +20,8 @@ class interface:
         self.manual()
         self.refresh_depthscore()
 
-        self.basicFont = pg.font.Font(PATH + 'EBGaramond08-Regular.ttf', 17)
-
     def manual(self):
-        maFont = pg.font.Font(PATH + 'EBGaramond08-Regular.ttf', 17)
+        maFont = pg.font.Font(PATH + FONT2, 16)
         mainpanel = pg.Surface((600,50))
         left = maFont.render('Arrow Left - Move Left',True, (255,255,255), (0,0,0))
         down = maFont.render('Arrow Down - Move Down',True, (255,255,255), (0,0,0))
@@ -31,31 +29,31 @@ class interface:
         split = maFont.render('Space Bar - Split the Roots',True, (255,255,255), (0,0,0))
         restart = maFont.render('(r)estart Game',True, (255,255,255), (0,0,0))
         q_uit = maFont.render('(q)uit Game',True, (255,255,255), (0,0,0))
-        mainpanel.blit(left, (0, 10))
-        mainpanel.blit(down, (200, 10))
-        mainpanel.blit(right, (400, 10))
-        mainpanel.blit(split, (0, 30))
-        mainpanel.blit(restart, (200, 30))
-        mainpanel.blit(q_uit, (400, 30))
+        mainpanel.blit(left, (2, 5))
+        mainpanel.blit(down, (200, 5))
+        mainpanel.blit(right, (400, 5))
+        mainpanel.blit(split, (2, 25))
+        mainpanel.blit(restart, (200, 25))
+        mainpanel.blit(q_uit, (400, 25))
         self.updateRects.append(self.screen.blit(mainpanel, (0, RES_Y)))
 
 
     def score(self):
-        scFont = pg.font.Font(PATH + 'EBGaramond08-Regular.ttf', 17)
+        scFont = pg.font.Font(PATH + FONT2, 16)
         mainlabel = pg.Surface((150,50))
         energy = scFont.render('Energy: '+str(self.game.energy),True, (255,255,255), (0,0,0))
         level = scFont.render('Depthlevel: '+str(self.game.level),True, (255,255,255), (0,0,0))
-        mainlabel.blit(energy, (0, 10))
-        mainlabel.blit(level, (0, 30))
+        mainlabel.blit(energy, (0, 5))
+        mainlabel.blit(level, (0, 25))
         self.updateRects.append(self.screen.blit(mainlabel,(RES_X-150, RES_Y)))
 
     def refresh_depthscore(self):
-        dsFont = pg.font.Font(PATH + 'EBGaramond08-Regular.ttf', 17)
+        dsFont = pg.font.Font(PATH + FONT2, 16)
         mainlabel = pg.Surface((300,50))
         no_highscore = dsFont.render('The Highscore is a lie.',True, (255,255,255), (0,0,0))
         depthscore = dsFont.render('Actually your Depthscore is '+str(self.game.depthscore)+'.',True, (255,255,255), (0,0,0))
-        mainlabel.blit(no_highscore, (0, 10))
-        mainlabel.blit(depthscore, (0, 30))
+        mainlabel.blit(no_highscore, (0, 5))
+        mainlabel.blit(depthscore, (0, 25))
         self.updateRects.append(self.screen.blit(mainlabel, (RES_X-450, RES_Y)))
 
     def initSounds(self):
@@ -179,8 +177,8 @@ class interface:
 
     def game_over(self):
         game_over = pg.Surface((300,100))
-        goFont = pg.font.Font(PATH + 'EBGaramond08-Regular.ttf', 48)
-        reFont = pg.font.Font(PATH + 'EBGaramond08-Regular.ttf', 21)
+        goFont = pg.font.Font(PATH + FONT2, 48)
+        reFont = pg.font.Font(PATH + FONT2, 21)
         text = goFont.render('Game Over',True, (255,255,255), (0,0,0))
         textRect = text.get_rect()
         textRect.x = game_over.get_rect().centerx-text.get_width()//2
@@ -188,7 +186,7 @@ class interface:
         re_text = reFont.render('(r)estart or (q)uit',True, (255,255,255), (0,0,0))
         re_textRect = re_text.get_rect()
         re_textRect.x = game_over.get_rect().centerx-re_text.get_width()//2
-        re_textRect.y = game_over.get_rect().centery+re_text.get_height()
+        re_textRect.y = game_over.get_rect().centery+re_text.get_height()//2
         game_over.blit(text, textRect)
         game_over.blit(re_text, re_textRect)
         self.updateRects.append(self.screen.blit(game_over,(RES_X//2-game_over.get_width()//2, RES_Y//2-game_over.get_height()//2)))
