@@ -24,9 +24,9 @@ class interface:
 
     def manual(self):
         maFont = pg.font.Font(PATH + FONT2, 16)
-        mainpanel = pg.Surface((400,50))
-        arrows = maFont.render('Arrows - Move',True, (255,255,255), (0,0,0))
-        split = maFont.render('Space - Rootsplit',True, (255,255,255), (0,0,0))
+        mainpanel = pg.Surface((300,50))
+        arrows = maFont.render('arrows - move',True, (255,255,255), (0,0,0))
+        split = maFont.render('space - rootsplit',True, (255,255,255), (0,0,0))
         restart = maFont.render('(r)estart',True, (255,255,255), (0,0,0))
         q_uit = maFont.render('(q)uit',True, (255,255,255), (0,0,0))
         mute = maFont.render('(m)ute',True, (255,255,255), (0,0,0)) 
@@ -41,39 +41,47 @@ class interface:
         separator = pg.Surface((3, 40))
         separator.fill((255,255,255))
         self.updateRects.append(self.screen.blit(separator, (320, RES_Y+5)))
-        self.updateRects.append(self.screen.blit(separator, (2*RES_X//3, RES_Y+5)))
+        self.updateRects.append(self.screen.blit(separator, (RES_X-363, RES_Y+5)))
 
     def icon_description(self):
         maFont = pg.font.Font(PATH + FONT2, 16)
-        mainpanel = pg.Surface((450,50))
-        water = maFont.render('+'+str(VAL_WATER)+(' Energy'),True, (255,255,255), (0,0,0))
-        uranium = maFont.render('-'+str(VAL_URANIUM)+' Energy',True, (255,255,255), (0,0,0))
-        mineral = maFont.render('Root gets +'+str(VAL_MINERAL)+' Stone Crusher.',True, (255,255,255), (0,0,0))
+        mainpanel = pg.Surface((600,50))
+        water = maFont.render('+'+str(VAL_WATER)+(' energy'),True, (255,255,255), (0,0,0))
+        uranium = maFont.render('-'+str(VAL_URANIUM)+' energy',True, (255,255,255), (0,0,0))
+        mineral1 = maFont.render('+'+str(VAL_MINERAL)+' stone crusher',True, (255,255,255), (0,0,0))
+        mineral2 = maFont.render('TEXT',True, (255,255,255), (0,0,0))
+        mineral3 = maFont.render('TEXT',True, (255,255,255), (0,0,0))
         mainpanel.blit(self.sprites[WATER_ICON], (0, 5))
         mainpanel.blit(water, (35, 5))
-        mainpanel.blit(self.sprites[MINERAL1_ICON], (200, 5))
-        mainpanel.blit(mineral, (235, 5))
         mainpanel.blit(self.sprites[URANIUM_ICON], (0, 25))
         mainpanel.blit(uranium, (35, 25))
+        mainpanel.blit(self.sprites[MINERAL1_ICON], (165, 5))
+        mainpanel.blit(mineral1, (200, 5))
+        mainpanel.blit(self.sprites[MINERAL2_ICON], (165, 25))
+        mainpanel.blit(mineral2, (200, 25))
+        mainpanel.blit(self.sprites[MINERAL3_ICON], (365, 5))
+        mainpanel.blit(mineral3, (400, 5))
+        
+        
         self.updateRects.append(self.screen.blit(mainpanel, (RES_X//2-mainpanel.get_width()//2, RES_Y)))
 
     def score(self):
         scFont = pg.font.Font(PATH + FONT2, 16)
-        mainlabel = pg.Surface((150,50))
-        energy = scFont.render('Energy: '+str(self.game.energy),True, (255,255,255), (0,0,0))
-        level = scFont.render('Depthlevel: '+str(self.game.level),True, (255,255,255), (0,0,0))
+        mainlabel = pg.Surface((120,50))
+        energy = scFont.render('energy: '+str(self.game.energy),True, (255,255,255), (0,0,0))
+        level = scFont.render('depthlevel: '+str(self.game.level),True, (255,255,255), (0,0,0))
         mainlabel.blit(energy, (0, 5))
         mainlabel.blit(level, (0, 25))
-        self.updateRects.append(self.screen.blit(mainlabel,(5*RES_X//6+mainlabel.get_width(), RES_Y)))
+        self.updateRects.append(self.screen.blit(mainlabel,(RES_X-130, RES_Y)))
 
     def refresh_depthscore(self):
         dsFont = pg.font.Font(PATH + FONT2, 16)
-        mainlabel = pg.Surface((300,50))
-        no_highscore = dsFont.render('The Highscore is a lie.',True, (255,255,255), (0,0,0))
-        depthscore = dsFont.render('Actually your Depthscore is '+str(self.game.depthscore)+'.',True, (255,255,255), (0,0,0))
+        mainlabel = pg.Surface((220,50))
+        no_highscore = dsFont.render('The highscore is a lie.',True, (255,255,255), (0,0,0))
+        depthscore = dsFont.render('Your depthscore is '+str(self.game.depthscore)+'.',True, (255,255,255), (0,0,0))
         mainlabel.blit(no_highscore, (0, 5))
         mainlabel.blit(depthscore, (0, 25))
-        self.updateRects.append(self.screen.blit(mainlabel, (5*RES_X//6-mainlabel.get_width()//2, RES_Y)))
+        self.updateRects.append(self.screen.blit(mainlabel, (RES_X-350, RES_Y)))
 
     def initSounds(self):
         self.sounds = {GAME_OVER:pg.mixer.Sound(PATH+'game_over2.ogg')}
@@ -122,7 +130,9 @@ class interface:
                         PLANT:pg.image.load(PATH+'plant.png').convert_alpha(),
                         WATER_ICON:pg.image.load(PATH+'water_icon.png').convert_alpha(),
                         URANIUM_ICON:pg.image.load(PATH+'uranium_icon.png').convert_alpha(),
-                        MINERAL1_ICON:pg.image.load(PATH+'mineral1_icon.png').convert_alpha()}
+                        MINERAL1_ICON:pg.image.load(PATH+'mineral1_icon.png').convert_alpha(),
+                        MINERAL2_ICON:pg.image.load(PATH+'mineral2_icon.png').convert_alpha(),
+                        MINERAL3_ICON:pg.image.load(PATH+'mineral3_icon.png').convert_alpha()}
         self.sprites[AIR].fill((50,50,200))
         self.sprites[GROUND].fill((139,69,19))
         self.grounds = {}
