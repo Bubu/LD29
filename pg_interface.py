@@ -48,6 +48,7 @@ class interface:
         mainpanel = pg.Surface((600,50))
         water = maFont.render('+'+str(VAL_WATER)+(' energy'),True, (255,255,255), (0,0,0))
         uranium = maFont.render('-'+str(VAL_URANIUM)+' energy',True, (255,255,255), (0,0,0))
+        split = maFont.render('-10 energy',True, (255,255,255), (0,0,0))
         mineral1 = maFont.render('root gets +'+str(VAL_MINERAL)+' stone crusher',True, (255,255,255), (0,0,0))
         mineral2 = maFont.render('+'+str(VAL_MINERAL2)+' energy',True, (255,255,255), (0,0,0))
         mineral3 = maFont.render('all roots get +'+str(VAL_MINERAL3)+' stone crusher',True, (255,255,255), (0,0,0))
@@ -56,6 +57,8 @@ class interface:
         mainpanel.blit(self.sprites[MINERAL2_ICON], (0, 25))
         mainpanel.blit(mineral2, (35, 25))
         mainpanel.blit(self.sprites[URANIUM_ICON], (165, 5))
+        mainpanel.blit(split, (200, 25))
+        mainpanel.blit(self.sprites[SPLIT_ICON], (165, 25))
         mainpanel.blit(uranium, (200, 5))
         mainpanel.blit(self.sprites[MINERAL1_ICON], (335, 5))
         mainpanel.blit(mineral1, (370, 5))
@@ -93,7 +96,7 @@ class interface:
                        S_URANIUM:pg.mixer.Sound(PATH+'uranium.wav')}
 
         for s in self.sounds.values():
-             s.set_volume(0.3)
+             s.set_volume(0.15)
         pg.mixer.music.load(PATH + MUSICFILE)
         pg.mixer.music.set_volume(0.5)
         pg.mixer.music.set_endevent(MUSIC_END)
@@ -148,6 +151,7 @@ class interface:
                         URANIUM_ICON:pg.image.load(PATH+'uranium_icon.png').convert_alpha(),
                         MINERAL1_ICON:pg.image.load(PATH+'mineral1_icon.png').convert_alpha(),
                         MINERAL2_ICON:pg.image.load(PATH+'mineral2_icon.png').convert_alpha(),
+                        SPLIT_ICON:pg.image.load(PATH+'split_icon.png').convert_alpha(),
                         MINERAL3_ICON:pg.image.load(PATH+'mineral3_icon.png').convert_alpha()}
         self.sprites[AIR].fill((50,50,200))
         self.sprites[GROUND].fill((139,69,19))
@@ -195,8 +199,10 @@ class interface:
                     if self.mute == False:
                         self.mute = True
                         self.stop_sounds()
+                        pg.mixer.music.pause()
                     elif self.mute == True:
                         self.mute = False
+                        pg.mixer.music.unpause()
                 elif evt.type == KEYUP and evt.key == K_r:
                     self.game.reset()
                 self.game.check_energy()
@@ -266,7 +272,8 @@ class interface:
             self.sounds[sound].play()
             
     def handlemusic(self):
-        pg.mixer.music.play()
+        if not self.mute:
+            pg.mixer.music.play()
     
     def stop_sounds(self):
         for s in self.sounds.values():
