@@ -1,3 +1,11 @@
-Game for Ludum Dare 29.
+In "Game of Roots" you play a plant, or rather its roots on a quest for minerals and water. The roots can be send down, left and right and, additionally, they can split up. Handling all of the roots simultaneously with the same four keys, collecting water and avoiding poisonous waste is the main difficulty of the game.
 
-Marcus Hoffmann, Stephan Wäldchen, Eric Zimmermann
+Basically the roots always do what you want - except if they can't. Then they do something else, so watch out! With four or more roots at the same time, this can happen quite often.
+
+You can set the resolution and other gameplay parameters in settings.txt
+
+Created during three days with Python3 + pygame, Inkscape, Anvil Music and sfxr
+by
+Code: Marcus Hoffmann, Eric Zimmermann
+Graphics: Stephan Waeldchen, Marcus Hoffmann
+Music: Stephan Waeldchen, Eric Zimmermann

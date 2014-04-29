@@ -7,7 +7,7 @@ PROGRAM_NAME = 'game'
 # fine tuning.
 buildOptions = dict(packages = [],
                     excludes = [],
-                    include_files = ["res"],
+                    include_files = ["res","settings.txt"],
                     includes = [],
                     compressed = True,
                     optimize = 2)
