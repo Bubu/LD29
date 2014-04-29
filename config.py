@@ -5,9 +5,13 @@ from pygame.locals import *
 appdir = os.path.dirname(sys.argv[0])
 PATH = os.path.join(appdir, "res") + os.sep
 
-p = os.path.join(appdir, '..')
-p = os.path.join(p, 'settings.txt')
-f = open(p)
+p1 = os.path.join(appdir, '..')
+p1 = os.path.join(p1, 'settings.txt')
+p2 = os.path.join(appdir, 'settings.txt')
+try:
+    f = open(p1)
+except:
+    f = open(p2)
 
 GAME_NAME = 'Game of Roots'
 RES_X = 1300
