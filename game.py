@@ -246,8 +246,8 @@ class game:
 
     def init_game_over(self):
         if self.game_over == False:
-            self._if.play_sound(GAME_OVER)
             self._if.stopMusic()
+            self._if.play_sound(GAME_OVER)
         self.game_over = True
         if self.level > self.depthscore:
             self.depthscore = self.level

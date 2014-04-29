@@ -279,4 +279,4 @@ class interface:
         for s in self.sounds.values():
             s.stop()
     def stopMusic(self):
-        pg.mixer.music.stop()
+        pg.mixer.music.pause()

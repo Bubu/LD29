@@ -6,7 +6,7 @@ class root:
         self.pos = pos
         self.dir = dir
         self.stoner_rock = 0
-        self.access = ACCESS.copy()
+        self.access = list(ACCESS)
 
     def check_down(self):
         if self.dir == UP:
